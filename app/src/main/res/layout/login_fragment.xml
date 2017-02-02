@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -11,7 +6,7 @@
     android:background="@drawable/images_"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.doc.final_project.LoginFragment">
+    tools:context="com.example.doc.final_project.com.example.doc.fragments.LoginFragment">
 
     <TextView
         android:id="@+id/splash_title"
@@ -21,8 +16,8 @@
         android:textAllCaps="true"
         android:layout_marginTop="39dp"
         android:layout_marginBottom="40dp"
-        android:gravity="center"
-        android:textSize="60sp"
+        android:layout_gravity="center"
+        android:textSize="16sp"
         android:textColor="@android:color/white"
         android:fontFamily="sans-serif-condensed"
         android:layout_alignParentTop="true"
@@ -41,6 +36,12 @@
         android:textColorHint="@android:color/white"
         android:layout_margin="8dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/error_username_login" />
+
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -52,6 +53,12 @@
         android:background="@drawable/transperant_background"
         android:id="@+id/etLogin_Password"
         android:hint="Enter Password"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/error_pasword_login" />
 
     <Button
         android:id="@+id/login_Button"
@@ -75,7 +82,8 @@
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="visible"
@@ -103,4 +111,3 @@
             android:textColor="@android:color/white"
             android:text="Sign Up!"/>
 </LinearLayout>
-    </ScrollView>
