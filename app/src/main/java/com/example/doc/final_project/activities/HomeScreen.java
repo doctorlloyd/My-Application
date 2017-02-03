@@ -3,7 +3,7 @@ package com.example.doc.final_project.activities;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-//import android.support.design.widget.TabLayout;
+import android.support.design.widget.TabLayout;
 import com.example.doc.final_project.R;
 import com.example.doc.final_project.adapters.ViewPagerAdapter;
 
@@ -24,8 +24,8 @@ public class HomeScreen extends AppCompatActivity {
         pager = (ViewPager)findViewById(R.id.pager);
         adapter = new ViewPagerAdapter(getSupportFragmentManager(),HomeScreen.this);
         pager.setAdapter(adapter);
-//        TabLayout tabLayout = (TabLayout)findViewById(R.id.tab);
-//        tabLayout.setupWithViewPager(viewPager);
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tab);
+        tabLayout.setupWithViewPager(pager);
         pager.setCurrentItem(1);
     }
 }

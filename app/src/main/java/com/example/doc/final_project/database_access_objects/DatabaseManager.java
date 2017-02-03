@@ -23,7 +23,7 @@ public class DatabaseManager {
     public static synchronized DatabaseManager getInstance() {
         if (instance == null) {
             throw new IllegalStateException(DatabaseManager.class.getSimpleName() +
-                    " is not initialized, call initializeInstance(..) method first.");
+                    " is not initialized, call initializeInstance(....  ..) method first.");
         }
 
         return instance;
@@ -43,7 +43,6 @@ public class DatabaseManager {
         if(mOpenCounter == 0) {
             // Closing database
             mDatabase.close();
-
         }
     }
 }
