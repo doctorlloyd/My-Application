@@ -30,6 +30,13 @@ public class Shop {
         this.shop_Name = shop_Name;
     }
 
+    public Shop(long shop_ID) {
+        this.shop_ID = shop_ID;
+    }
+
+    public Shop() {
+    }
+
     public String getShop_Category() {
         return shop_Category;
     }

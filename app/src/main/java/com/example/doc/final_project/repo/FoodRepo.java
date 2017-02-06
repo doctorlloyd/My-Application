@@ -17,8 +17,7 @@ public class FoodRepo {
     public FoodRepo(){
         address = new Food();
     }
-
-    public static String CreateAddressTable(){
+    public static String CreateFoodTable(){
         return "CREATE TABLE " + Food.Var_Table  + "("
                 + Food.Var_Food_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Food.Var_Food_Amount_Off +" REAL,"+ Food.Var_Food_Brand_Name +" TEXT,"

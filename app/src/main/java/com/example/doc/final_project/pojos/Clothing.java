@@ -16,6 +16,7 @@ public class Clothing {
     public static final String Var_Clothing_Size = "Clothing_Size";
     public static final String Var_Clothing_Brand_Name = "Clothing_Brand_Name";
     public static final String Var_Clothing_Duration = "Clothing_Duration";
+    public static final String getVar_Clothing_Specification = "Clothing_Specification";
 
     private long clothing_ID;
     private String clothing_Type;
@@ -25,12 +26,12 @@ public class Clothing {
     private long clothing_Shop_ID;
     private String clothing_Size;
     private String clothing_Brand_Name;
+    private String clothing_Specification;
     /*
     *** Duration must be entered in days....
      */
     private long clothing_Duration;
-
-    public Clothing(String clothing_Brand_Name, long clothing_Duration, long clothing_ID, double clothing_Normal_Price, int clothing_Percentage_Off, double clothing_Reduced_Price, long clothing_Shop_ID, String clothing_Size, String clothing_Type) {
+    public Clothing(String clothing_Brand_Name, long clothing_Duration, long clothing_ID, double clothing_Normal_Price, int clothing_Percentage_Off, double clothing_Reduced_Price, long clothing_Shop_ID, String clothing_Size, String clothing_Specification , String clothing_Type) {
         this.clothing_Brand_Name = clothing_Brand_Name;
         this.clothing_Duration = clothing_Duration;
         this.clothing_ID = clothing_ID;
@@ -40,6 +41,8 @@ public class Clothing {
         this.clothing_Shop_ID = clothing_Shop_ID;
         this.clothing_Size = clothing_Size;
         this.clothing_Type = clothing_Type;
+        this.clothing_Specification = clothing_Specification;
+
     }
 
     public Clothing(String clothing_Brand_Name, long clothing_ID, long clothing_Shop_ID) {
@@ -106,7 +109,13 @@ public class Clothing {
     public void setClothing_Shop_ID(long clothing_Shop_ID) {
         this.clothing_Shop_ID = clothing_Shop_ID;
     }
+    public String getClothing_Specification() {
+        return clothing_Specification;
+    }
 
+    public void setClothing_Specification(String clothing_Specification) {
+        this.clothing_Specification = clothing_Specification;
+    }
     public String getClothing_Size() {
         return clothing_Size;
     }
@@ -126,14 +135,15 @@ public class Clothing {
     @Override
     public String toString() {
         return "Clothing{" +
-                "clothing_Brand_Name='" + clothing_Brand_Name + '\'' +
-                ", clothing_ID=" + clothing_ID +
+                "clothing_ID=" + clothing_ID +
                 ", clothing_Type='" + clothing_Type + '\'' +
                 ", clothing_Percentage_Off=" + clothing_Percentage_Off +
                 ", clothing_Reduced_Price=" + clothing_Reduced_Price +
                 ", clothing_Normal_Price=" + clothing_Normal_Price +
                 ", clothing_Shop_ID=" + clothing_Shop_ID +
                 ", clothing_Size='" + clothing_Size + '\'' +
+                ", clothing_Brand_Name='" + clothing_Brand_Name + '\'' +
+                ", clothing_Specification='" + clothing_Specification + '\'' +
                 ", clothing_Duration=" + clothing_Duration +
                 '}';
     }
