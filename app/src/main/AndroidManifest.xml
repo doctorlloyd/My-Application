@@ -9,20 +9,36 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".activities.HomeScreen"
             android:icon="@mipmap/ic_launcher">
+
+        </activity>
+
+        <!-- <activity android:name=".activities.HomeScreen" /> -->
+        <!-- &lt;!&ndash; -->
+
+
+        <!-- &ndash;&gt; -->
+        <activity
+            android:name=".SecondScreen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SECONDSCREEN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".firebase.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!--<activity android:name=".activities.HomeScreen" />-->
-        <!--&lt;!&ndash;-->
-
-        <!--&ndash;&gt;-->
     </application>
+
 </manifest>

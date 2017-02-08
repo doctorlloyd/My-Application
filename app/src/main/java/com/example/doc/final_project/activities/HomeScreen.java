@@ -28,4 +28,5 @@ public class HomeScreen extends AppCompatActivity {
         tabLayout.setupWithViewPager(pager);
         pager.setCurrentItem(1);
     }
+
 }
