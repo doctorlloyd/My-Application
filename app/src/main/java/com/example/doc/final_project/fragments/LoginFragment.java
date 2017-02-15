@@ -45,7 +45,7 @@ public class LoginFragment extends Fragment{
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
-                                    .setLogo(R.drawable.images)
+                                    //.setLogo(R.drawable.images)
                                     .setTheme(R.style.AppTheme)
                                     .setIsSmartLockEnabled(false)
                                     .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),

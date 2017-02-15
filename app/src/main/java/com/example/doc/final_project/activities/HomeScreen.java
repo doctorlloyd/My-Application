@@ -21,7 +21,7 @@ public class HomeScreen extends AppCompatActivity {
         /*
         ***
          */
-        pager = (ViewPager)findViewById(R.id.pager);
+        pager = (ViewPager)findViewById(R.id.home_pager);
         adapter = new ViewPagerAdapter(getSupportFragmentManager(),HomeScreen.this);
         pager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tab);

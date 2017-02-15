@@ -36,126 +36,127 @@ public class MainActivity extends AppCompatActivity {
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
-        txtDetails = (TextView) findViewById(R.id.txt_user);
-        inputName = (EditText) findViewById(R.id.name);
-        inputEmail = (EditText) findViewById(R.id.email);
-        btnSave = (Button) findViewById(R.id.btn_save);
-
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-
-        // get reference to 'users' node
-        mFirebaseDatabase = mFirebaseInstance.getReference();
-
-        // store app title to 'app_title' node
-        mFirebaseInstance.getReference("app_title").setValue("Realtime Database");
-
-        // app_title change listener
-//        mFirebaseInstance.getReference("app_title").addValueEventListener(new ValueEventListener() {
+//        txtDetails = (TextView) findViewById(R.id.txt_user);
+//        inputName = (EditText) findViewById(R.id.name);
+//        inputEmail = (EditText) findViewById(R.id.email);
+//        btnSave = (Button) findViewById(R.id.btn_save);
+//
+//        mFirebaseInstance = FirebaseDatabase.getInstance();
+//
+//        // get reference to 'users' node
+//        mFirebaseDatabase = mFirebaseInstance.getReference();
+//
+//        // store app title to 'app_title' node
+//        mFirebaseInstance.getReference("app_title").setValue("Realtime Database");
+//
+//        // app_title change listener
+////        mFirebaseInstance.getReference("app_title").addValueEventListener(new ValueEventListener() {
+////            @Override
+////            public void onDataChange(DataSnapshot dataSnapshot) {
+////                Log.e(TAG, "App title updated");
+////
+////                String appTitle = dataSnapshot.getValue(String.class);
+////
+////                // update toolbar title
+//////                getSupportActionBar().setTitle(appTitle);
+////            }
+////
+////            @Override
+////            public void onCancelled(DatabaseError error) {
+////                // Failed to read value
+////                Log.e(TAG, "Failed to read app title value.", error.toException());
+////            }
+////        });
+//
+//        // Save / update the user
+//        btnSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String name = inputName.getText().toString();
+//                String email = inputEmail.getText().toString();
+//
+//                // Check for already existed userId
+//                if (TextUtils.isEmpty(userId)) {
+//                    createUser(name, email);
+//                } else {
+//                    updateUser(name, email);
+//                }
+//            }
+//        });
+//
+//        toggleButton();
+//    }
+//
+//    // Changing button text
+//    private void toggleButton() {
+//        if (TextUtils.isEmpty(userId)) {
+//            btnSave.setText("Save");
+//        } else {
+//            btnSave.setText("Update");
+//        }
+//    }
+//
+//    /**
+//     * Creating new user node under 'users'
+//     */
+//    private void createUser(String name, String email) {
+//        // TODO
+//        // In real apps this userId should be fetched
+//        // by implementing firebase auth
+//        if (TextUtils.isEmpty(userId)) {
+//            userId = mFirebaseDatabase.push().getKey();
+//        }
+//
+//        User user = new User(name, email);
+//
+//        mFirebaseDatabase.child(userId).setValue(user);
+//
+//        addUserChangeListener();
+//    }
+//
+//    /**
+//     * User data change listener
+//     */
+//    private void addUserChangeListener() {
+//        // User data change listener
+//        mFirebaseDatabase.child(userId).addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Log.e(TAG, "App title updated");
+//                User user = dataSnapshot.getValue(User.class);
 //
-//                String appTitle = dataSnapshot.getValue(String.class);
+//                // Check for null
+//                if (user == null) {
+//                    Log.e(TAG, "User data is null!");
+//                    return;
+//                }
 //
-//                // update toolbar title
-////                getSupportActionBar().setTitle(appTitle);
+//                Log.e(TAG, "User data is changed!" + user.name + ", " + user.email);
+//
+//                // Display newly updated name and email
+//                txtDetails.setText(user.name + ", " + user.email);
+//
+//                // clear edit text
+//                inputEmail.setText("");
+//                inputName.setText("");
+//
+//                toggleButton();
 //            }
 //
 //            @Override
 //            public void onCancelled(DatabaseError error) {
 //                // Failed to read value
-//                Log.e(TAG, "Failed to read app title value.", error.toException());
+//                Log.e(TAG, "Failed to read user", error.toException());
 //            }
 //        });
-
-        // Save / update the user
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = inputName.getText().toString();
-                String email = inputEmail.getText().toString();
-
-                // Check for already existed userId
-                if (TextUtils.isEmpty(userId)) {
-                    createUser(name, email);
-                } else {
-                    updateUser(name, email);
-                }
-            }
-        });
-
-        toggleButton();
-    }
-
-    // Changing button text
-    private void toggleButton() {
-        if (TextUtils.isEmpty(userId)) {
-            btnSave.setText("Save");
-        } else {
-            btnSave.setText("Update");
-        }
-    }
-
-    /**
-     * Creating new user node under 'users'
-     */
-    private void createUser(String name, String email) {
-        // TODO
-        // In real apps this userId should be fetched
-        // by implementing firebase auth
-        if (TextUtils.isEmpty(userId)) {
-            userId = mFirebaseDatabase.push().getKey();
-        }
-
-        User user = new User(name, email);
-
-        mFirebaseDatabase.child(userId).setValue(user);
-
-        addUserChangeListener();
-    }
-
-    /**
-     * User data change listener
-     */
-    private void addUserChangeListener() {
-        // User data change listener
-        mFirebaseDatabase.child(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-
-                // Check for null
-                if (user == null) {
-                    Log.e(TAG, "User data is null!");
-                    return;
-                }
-
-                Log.e(TAG, "User data is changed!" + user.name + ", " + user.email);
-
-                // Display newly updated name and email
-                txtDetails.setText(user.name + ", " + user.email);
-
-                // clear edit text
-                inputEmail.setText("");
-                inputName.setText("");
-
-                toggleButton();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.e(TAG, "Failed to read user", error.toException());
-            }
-        });
-    }
-
-    private void updateUser(String name, String email) {
-        // updating the user via child nodes
-        if (!TextUtils.isEmpty(name))
-            mFirebaseDatabase.child(userId).child("name").setValue(name);
-
-        if (!TextUtils.isEmpty(email))
-            mFirebaseDatabase.child(userId).child("email").setValue(email);
+//    }
+//
+//    private void updateUser(String name, String email) {
+//        // updating the user via child nodes
+//        if (!TextUtils.isEmpty(name))
+//            mFirebaseDatabase.child(userId).child("name").setValue(name);
+//
+//        if (!TextUtils.isEmpty(email))
+//            mFirebaseDatabase.child(userId).child("email").setValue(email);
+//    }
     }
 }

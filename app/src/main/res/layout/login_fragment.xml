@@ -5,8 +5,8 @@
     android:id="@+id/login"
     android:background="@drawable/images_"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="com.example.doc.final_project.com.example.doc.fragments.LoginFragment">
+    android:layout_height="match_parent"
+    tools:context=".activities.SecondScreen">
 
     <TextView
         android:id="@+id/splash_title"

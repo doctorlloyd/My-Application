@@ -32,9 +32,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         else
             return new Clothing_Fragment();
     }
-    public void position(int pos){
-        getItem(pos);
-    }
 
     @Override
     public int getCount() {
