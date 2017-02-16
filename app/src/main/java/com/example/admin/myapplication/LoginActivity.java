@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.example.doc.final_project.R;
-import com.example.doc.final_project.activities.HomeScreen;
-import com.example.doc.final_project.activities.SecondScreen;
-import com.example.doc.final_project.firebase.MainActivity;
+import com.example.admin.myapplication.activities.SecondScreen;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

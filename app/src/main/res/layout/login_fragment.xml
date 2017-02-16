@@ -6,7 +6,7 @@
     android:background="@drawable/images_"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SecondScreen">
+    tools:context="com.example.admin.myapplication.activities.SecondScreen">
 
     <TextView
         android:id="@+id/splash_title"
