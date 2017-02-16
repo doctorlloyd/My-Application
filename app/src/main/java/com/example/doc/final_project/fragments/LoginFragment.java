@@ -27,48 +27,7 @@ public class LoginFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.login_fragment, container, false);
-
-        //<---Initialize Firebase Components--->
-        mfirebaseAuth = FirebaseAuth.getInstance();
-
-
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    //<---Signed in--->
-                    startActivity(new Intent(getActivity(), HomeScreen.class));
-                }else {
-                    //<--Signed Out--->
-
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    //.setLogo(R.drawable.images)
-                                    .setTheme(R.style.AppTheme)
-                                    .setIsSmartLockEnabled(false)
-                                    .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                                            new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()))
-                                    .build(),
-                            RC_SIGN_IN);
-                }
-            }
-
-        };
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mfirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mfirebaseAuth.removeAuthStateListener(mAuthStateListener);
-    }
 }
