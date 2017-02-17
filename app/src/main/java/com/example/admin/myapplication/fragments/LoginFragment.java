@@ -1,5 +1,6 @@
 package com.example.admin.myapplication.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.admin.myapplication.activities.HomeScreen;
 import com.example.doc.final_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +42,8 @@ public class LoginFragment extends Fragment{
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    Intent intent = new Intent(getActivity(), HomeScreen.class);
+                    startActivity(intent);
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -47,7 +51,13 @@ public class LoginFragment extends Fragment{
                 // ...
             }
         };
-        // ...
+//        btnGoogleLogin = (Button) rootView.findViewById(R.id.sign_in_button);
+//        btnGoogleLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
         return rootView;
     }
     @Override
