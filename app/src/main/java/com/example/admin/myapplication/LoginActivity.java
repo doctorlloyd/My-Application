@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.example.admin.myapplication.activities.HomeScreen;
 import com.example.doc.final_project.R;
 import com.example.admin.myapplication.activities.SecondScreen;
 import com.firebase.ui.auth.AuthUI;
@@ -36,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
                     //<---Signed in--->
-                    startActivity(new Intent(LoginActivity.this, SecondScreen.class));
+                    System.out.println("==============="+"this is what hapens when you smoke less than the required quantity"+"===========");
+                    startActivity(new Intent(LoginActivity.this, HomeScreen.class));
 //                    Toast.makeText(MainActivity.this,"You're now signed in.Welcome to Pharmarcee!",Toast.LENGTH_SHORT).show();
 
 

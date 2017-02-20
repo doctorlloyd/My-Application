@@ -28,6 +28,7 @@ public class SignUpFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.signup_fragment,container,false);
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        FirebaseDatabase firebaseUser = FirebaseDatabase.getInstance();
         view = rootView;
         initializeViews();
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +71,7 @@ public class SignUpFragment extends Fragment{
                 Client client = new Client(address,contact,email,password,name);
                 String key = databaseReference.push().getKey();
                 System.out.println("================= "+key+" =============="+ client.getUserName());
-                databaseReference.child(key).setValue(client.getEmail());
+                databaseReference.child(key).setValue(client);
                 Toast.makeText(getContext(),"User added ....",Toast.LENGTH_LONG).show();
 //                initializeViews();
             }else {

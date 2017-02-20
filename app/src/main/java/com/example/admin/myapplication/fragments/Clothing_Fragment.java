@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Clothing_Fragment extends Fragment implements SearchView.OnQueryTextListener{
     public static final String TAG = Furniture_Fragment.class.getSimpleName();
-    private SearchView searchView;
+    private SearchView searchLocation;
     /*
     *** Declaring database reference
      */
@@ -35,9 +35,9 @@ public class Clothing_Fragment extends Fragment implements SearchView.OnQueryTex
         *** Then initialising search view object
          */
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        searchView = (SearchView) rootView.findViewById(R.id.searchview);
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);
+        searchLocation = (SearchView) rootView.findViewById(R.id.searchLocation);
+        searchLocation.setSubmitButtonEnabled(true);
+        searchLocation.setOnQueryTextListener(this);
 
         return rootView;
     }

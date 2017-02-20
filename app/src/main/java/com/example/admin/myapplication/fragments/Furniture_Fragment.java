@@ -20,13 +20,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Doc on 2017/02/01.
  */
 
 public class Furniture_Fragment extends Fragment implements SearchView.OnQueryTextListener{
     public static final String TAG = Furniture_Fragment.class.getSimpleName();
-    private SearchView searchView;
+    @BindView(R.id.searchLocation)SearchView searchLocation;
+    @BindView(R.id.searchSupermarket)SearchView searchSupermarket;
+    @BindView(R.id.searchProduct)SearchView searchProduct;
     /*
     *** Declaring database reference
      */
@@ -40,10 +45,9 @@ public class Furniture_Fragment extends Fragment implements SearchView.OnQueryTe
         *** Initializing database reference (FIRE_BASE)
         *** Then initialising search view object
          */
+        ButterKnife.bind(this,rootView);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        searchView = (SearchView) rootView.findViewById(R.id.searchview);
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);
+        setListeners();
 
 //
 //        mFirebaseInstance = FirebaseDatabase.getInstance();
@@ -53,6 +57,15 @@ public class Furniture_Fragment extends Fragment implements SearchView.OnQueryTe
 //        mFirebaseInstance.getReference("app_title").setValue("Realtime Database");
 
         return rootView;
+    }
+
+    private void setListeners() {
+        searchLocation.setSubmitButtonEnabled(true);
+        searchLocation.setOnQueryTextListener(this);
+        searchSupermarket.setSubmitButtonEnabled(true);
+        searchSupermarket.setOnQueryTextListener(this);
+        searchProduct.setSubmitButtonEnabled(true);
+        searchProduct.setOnQueryTextListener(this);
     }
 
     @Override

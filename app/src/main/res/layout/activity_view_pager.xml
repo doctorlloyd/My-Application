@@ -14,11 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tab"
-            app:tabMode="scrollable"
-            app:tabGravity="fill"
-            app:tabBackground="@color/colorPrimary"
-            app:tabTextColor="#E8EAF6"
-            app:tabSelectedTextColor="#9FA8DA"
+            app:tabBackground="@drawable/images_"
+            app:tabTextColor="#000000"
+            app:tabSelectedTextColor="#FFFFFF"
+            android:elevation="12dp"
             app:tabIndicatorColor="@android:color/white"/>
     </android.support.v4.view.ViewPager>
 </LinearLayout>

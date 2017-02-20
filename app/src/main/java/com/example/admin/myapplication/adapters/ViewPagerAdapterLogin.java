@@ -24,10 +24,11 @@ public class ViewPagerAdapterLogin extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if(position==0)
-        {
-            return new LoginFragment();
-        }else if(position ==1)
+//        if(position==0)
+//        {
+//            return new LoginFragment();
+//        }else
+        if(position ==0)
         {
             return new SplashFragment();
         }else {
@@ -37,15 +38,16 @@ public class ViewPagerAdapterLogin extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position==0)
-        {
-            return context.getResources().getString(R.string.title_login_fragment);
-        }else if(position ==1)
+//        if(position==0)
+//        {
+//            return context.getResources().getString(R.string.title_login_fragment);
+//        }else
+        if(position ==0)
         {
             return context.getResources().getString(R.string.title_splash_fragment);
         }else {
