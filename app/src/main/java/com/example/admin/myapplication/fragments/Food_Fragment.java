@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.admin.myapplication.activities.MapActivity;
 import com.example.doc.final_project.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -47,8 +48,13 @@ public class Food_Fragment extends Fragment implements SearchView.OnQueryTextLis
         *** Creating an Intent that would trigger the Google maps API....
         *** After it will then set the location entered as destination point.
          */
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "+query));
+//        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "+query));
+//        startActivity(intent);
+
+        Intent intent = new Intent(getContext(), MapActivity.class);
+        intent.putExtra("information",query);
         startActivity(intent);
+
         /*
         ***
          */

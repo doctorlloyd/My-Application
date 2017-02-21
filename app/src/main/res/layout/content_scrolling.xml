@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/cast_expanded_controller_ad_label_background_color"
+                android:background="#000000"
                 android:gravity="end"
                 android:text="R 32.00" />
         </FrameLayout>
