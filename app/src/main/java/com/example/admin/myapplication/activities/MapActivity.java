@@ -29,9 +29,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         if(googleServicesAvailable()){
             setContentView(R.layout.map_activity);
+            query = getIntent().getStringExtra("information");
             Toast.makeText(this,"Connected",Toast.LENGTH_LONG).show();
             initializeMapFragment();
-            query = getIntent().getStringExtra("information");
             Toast.makeText(this,query,Toast.LENGTH_LONG).show();
         }else{
             
@@ -46,7 +46,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
-        this.googleMap = googleMap;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        try {
+            geographicalLocation(query, googleMap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public boolean googleServicesAvailable()
     {
@@ -63,7 +68,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         return false;
     }
-    public void geographicalLocation(String query) throws IOException {
+    public void geographicalLocation(String query, GoogleMap googleMap) throws IOException {
         Geocoder geocoder = new Geocoder(this);
         List<Address> addresses = geocoder.getFromLocationName(query,1);
         Address address = addresses.get(0);
@@ -71,12 +76,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         double latitude = address.getLatitude();
         double longitude = address.getLongitude();
-        goToAddress(latitude,longitude,19);
+        goToAddress(latitude,longitude,15, googleMap);
     }
 
-    private void goToAddress(double latitude, double longitude, int zoom) {
+    private void goToAddress(double latitude, double longitude, int zoom, GoogleMap _googleMap) {
         LatLng ll = new LatLng(latitude,longitude);
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll,zoom);
-        this.googleMap.moveCamera(update);
+        _googleMap.moveCamera(update);
     }
 }
