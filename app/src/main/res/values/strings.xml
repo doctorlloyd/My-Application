@@ -106,5 +106,10 @@
     <string name="title_login_fragment">Login</string>
     <string name="title_splash_fragment">Get Started</string>
     <string name="title_sign_up_fragment">Sign Up</string>
+    <string name="action_satellite">Satellite</string>
+    <string name="action_normal">Normal</string>
+    <string name="action_none">None</string>
+    <string name="action_terrain">Terrain</string>
+    <string name="action_hybrid">Hybrid</string>
 
 </resources>
