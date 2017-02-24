@@ -35,7 +35,7 @@
             android:background="@drawable/transperant_background"/>
     </LinearLayout>
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/furnitureListview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="2dp"
