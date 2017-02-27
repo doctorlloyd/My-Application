@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etClotheID"
+            android:id="@+id/etFurnitureID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etClotheType"
+            android:id="@+id/etFurnitureType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etClotheBrandName"
+            android:id="@+id/etFurnitureBrandName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etClotheSpecification"
+            android:id="@+id/etFurnitureSpecification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etClotheSize"
+            android:id="@+id/etFurnitureSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etClotheNormalPrice"
+            android:id="@+id/etFurnitureNormalPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -128,7 +128,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etClothePercentageOFF"
+            android:id="@+id/etPercentagePercentageOFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -147,7 +147,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etClotheReducedPrice"
+            android:id="@+id/etFurnitureReducedPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -158,6 +158,24 @@
             android:ems="10"
             android:gravity="center"
             android:hint="Reduced Price"
+            android:inputType="textAutoCorrect" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etFurnitureColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Color"
             android:inputType="textAutoCorrect" />
     </android.support.design.widget.TextInputLayout>
 

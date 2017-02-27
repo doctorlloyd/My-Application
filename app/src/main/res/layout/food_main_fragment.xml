@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/images_"
+    android:background="#0097A7"
     android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin">
 

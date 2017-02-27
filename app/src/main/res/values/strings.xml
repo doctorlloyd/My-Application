@@ -114,5 +114,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_shop_register_or_login">ShopRegisterOrLogin</string>
+    <string name="title_shop_login">Login</string>
+    <string name="title_shop_signup">Sign Up</string>
 
+    <!--<string-array name="Category">-->
+        <!--<item>CLOTHING SHOP</item>-->
+        <!--<item>FOOD SHOP</item>-->
+        <!--<item>FURNITURE SHOP</item>-->
+    <!--</string-array>-->
 </resources>

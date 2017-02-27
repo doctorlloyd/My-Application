@@ -15,7 +15,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etClotheID"
+                android:id="@+id/etFoodID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etClotheType"
+                android:id="@+id/etFoodType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etClotheBrandName"
+                android:id="@+id/etFoodBrandName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etClotheSpecification"
+                android:id="@+id/etFoodSpecification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etClotheSize"
+                android:id="@+id/etFoodSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -101,7 +101,7 @@
                 android:background="@drawable/edit_text"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Item Size"
+                android:hint="Item Weight"
                 android:inputType="textAutoCorrect" />
         </android.support.design.widget.TextInputLayout>
 
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etClotheNormalPrice"
+                android:id="@+id/etFoodNormalPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etClothePercentageOFF"
+                android:id="@+id/etFoodPercentageOFF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -139,7 +139,7 @@
                 android:background="@drawable/edit_text"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Percentage OFF"
+                android:hint="Amount OFF"
                 android:inputType="numberDecimal" />
         </android.support.design.widget.TextInputLayout>
 
@@ -148,7 +148,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etClotheReducedPrice"
+                android:id="@+id/etFoodReducedPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

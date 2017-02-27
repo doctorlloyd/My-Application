@@ -51,13 +51,6 @@ public class LoginFragment extends Fragment{
                 // ...
             }
         };
-//        btnGoogleLogin = (Button) rootView.findViewById(R.id.sign_in_button);
-//        btnGoogleLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
         return rootView;
     }
     @Override
