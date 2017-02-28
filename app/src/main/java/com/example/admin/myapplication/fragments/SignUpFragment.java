@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.doc.final_project.R;
 import com.example.admin.myapplication.pojos.Client;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,12 +26,16 @@ public class SignUpFragment extends Fragment{
     private Button btnCancel, btnSignUp;
     private View view;
     private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
+    String userId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.signup_fragment,container,false);
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        FirebaseDatabase firebaseUser = FirebaseDatabase.getInstance();
+
         view = rootView;
+       firebaseUser = mAuth.getCurrentUser( );
         initializeViews();
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +43,7 @@ public class SignUpFragment extends Fragment{
                 addUserToDatabase();
             }
         });
+        userId = firebaseUser.getUid();
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +77,7 @@ public class SignUpFragment extends Fragment{
             {
                 Client client = new Client(address,contact,email,password,name);
                 String key = databaseReference.push().getKey();
-                System.out.println("================= "+key+" =============="+ client.getUserName());
+                System.out.println("================= "+userId+" =============="+ client.getUserName());
                 databaseReference.child(key).setValue(client);
                 Toast.makeText(getContext(),"User added ....",Toast.LENGTH_LONG).show();
 //                initializeViews();
