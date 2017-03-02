@@ -1,5 +1,6 @@
 package com.example.admin.myapplication.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -19,7 +20,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.admin.myapplication.Main2Activity;
+import com.example.admin.myapplication.activities.ItemRegistration;
 import com.example.admin.myapplication.pojos.Client;
+import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,7 +38,7 @@ import static android.content.ContentValues.TAG;
  * Created by Doc on 2017/02/21.
  */
 
-public class ShopRegistration extends Fragment implements AdapterView.OnItemSelectedListener,View.OnClickListener {
+public class ShopRegistration extends Fragment implements View.OnClickListener {
     private String[] array = {"FOOD","CLOTHING","FURNITURE"};
     private Spinner spinner;
     private EditText etName,etAddress,etContact,etConfirmPassword;
@@ -43,6 +46,7 @@ public class ShopRegistration extends Fragment implements AdapterView.OnItemSele
     private Button btnCancel, btnSignUp;
     private FirebaseUser user;
     private String uid = null;
+
     private View view;
     private DatabaseReference databaseReference;
 
@@ -64,7 +68,6 @@ public class ShopRegistration extends Fragment implements AdapterView.OnItemSele
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,array);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
@@ -120,12 +123,11 @@ public class ShopRegistration extends Fragment implements AdapterView.OnItemSele
         }
     }
     // [END on_stop_remove_listener]
-    private void createAccount(String email, String password) {
+    private void createAccount(final String email, final String password) {
         Log.d(TAG, "createAccount:" + email);
         if (!validateForm()) {
             return;
         }
-
         //showProgressDialog();
 
         // [START create_user_with_email]
@@ -134,11 +136,28 @@ public class ShopRegistration extends Fragment implements AdapterView.OnItemSele
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-                        uid = user.getUid();
-                        if(uid != null)
-                        {
-                            databaseReference = FirebaseDatabase.getInstance().getReference("Shop");
 
+                        if(task.isSuccessful())// && (etConfirmPassword.getText().toString().equals(password)))
+                        {
+                            uid = user.getUid();
+                            databaseReference = FirebaseDatabase.getInstance().getReference("Shop");
+//                            if(!TextUtils.isEmpty(etAddress.getText().toString())&&!TextUtils.isEmpty(etName.getText().toString())&&!TextUtils.isEmpty(etContact.getText().toString()))
+//                            {
+                                String _category = spinner.getSelectedItem().toString();
+                                String _location = etAddress.getText().toString();
+                                String shopName = etName.getText().toString();
+                                String _contact = etContact.getText().toString();
+
+                                Shop shop = new Shop(_category,uid,_location,shopName,email,_contact,password);
+                                String key = databaseReference.push().getKey();
+                                databaseReference.child(key).setValue(shop);
+
+                                Intent intent = new Intent(getActivity(), ItemRegistration.class);
+                                intent.putExtra("fragment_name",_category);
+                                intent.putExtra("shop_name",shop);
+                                startActivity(intent);
+                                getActivity().finish();
+//                            }
                         }
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
@@ -238,7 +257,7 @@ public class ShopRegistration extends Fragment implements AdapterView.OnItemSele
         }
 
         String password = etPassword.getText().toString();
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password)||TextUtils.isEmpty(etConfirmPassword.getText().toString())) {
             etPassword.setError("Required.");
             valid = false;
         } else {
@@ -268,16 +287,15 @@ public class ShopRegistration extends Fragment implements AdapterView.OnItemSele
     }
     private void initializeViews(){
 
-//        etAddress = (EditText) view.findViewById(R.id.etShopAddress);
-//        etContact = (EditText) view.findViewById(R.id.etShopContact);
+        etAddress = (EditText) view.findViewById(R.id.etShopAddress);
+        etContact = (EditText) view.findViewById(R.id.etShopContact);
         etEmail = (EditText) view.findViewById(R.id.etShopEmail);
-//        etName = (EditText) view.findViewById(R.id.etShopName);
+        etName = (EditText) view.findViewById(R.id.etShopName);
         etPassword = (EditText) view.findViewById(R.id.etShopPassword);
-//        etConfirmPassword = (EditText) view.findViewById(R.id.etShopConfirmPassword);
+        etConfirmPassword = (EditText) view.findViewById(R.id.etShopConfirmPassword);
         spinner = (Spinner) view.findViewById(R.id.spShopCategory);
         btnSignUp = (Button) view.findViewById(R.id.shopSignUp);
         btnCancel = (Button) view.findViewById(R.id.shopSendVerification);
-//        btnSignUp.setOnClickListener(this);
     }
 
     @Override
@@ -293,15 +311,5 @@ public class ShopRegistration extends Fragment implements AdapterView.OnItemSele
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long _ID) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 }

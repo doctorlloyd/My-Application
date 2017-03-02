@@ -16,7 +16,7 @@ public class ShopRepo {
 
 
     public ShopRepo(){
-        shop = new Shop();
+        //shop = new Shop();
     }
     public static String  createShopTable(){
         return "Create "+Shop.class + "("

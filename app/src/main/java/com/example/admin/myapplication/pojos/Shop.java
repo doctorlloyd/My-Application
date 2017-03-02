@@ -1,10 +1,14 @@
 package com.example.admin.myapplication.pojos;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by Doc on 2017/02/02.
  */
 
-public class Shop {
+public class Shop implements Serializable {
     public static final String Var_Table = Shop.class.getSimpleName();
 
     public static final String Var_Shop_ID = "Shop_ID";
@@ -12,29 +16,57 @@ public class Shop {
     public static final String Var_Shop_Category = "Shop_Category";
     public static final String Var_Shop_location = "Shop_location";
 
-    private long shop_ID;
+    private String shop_ID;
     private String shop_Name;
     private String shop_Category;
     private String shop_location;
+    private String email;
+    private String contact;
+    private String image;
+    String password;
 
-    public Shop(String shop_Category, long shop_ID, String shop_location, String shop_Name) {
+    public Shop(String shop_Category, String shop_ID, String shop_location, String shop_Name,String email, String contact, String password) {
         this.shop_Category = shop_Category;
         this.shop_ID = shop_ID;
         this.shop_location = shop_location;
         this.shop_Name = shop_Name;
+        this.email = email;
+        this.contact = contact;
+        this.password = password;
     }
 
-    public Shop(long shop_ID, String shop_location, String shop_Name) {
+    public Shop(String shop_location, String shop_Name) {
         this.shop_ID = shop_ID;
         this.shop_location = shop_location;
         this.shop_Name = shop_Name;
     }
 
-    public Shop(long shop_ID) {
+    public Shop(String shop_ID) {
         this.shop_ID = shop_ID;
     }
 
-    public Shop() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getShop_Category() {
@@ -45,11 +77,11 @@ public class Shop {
         this.shop_Category = shop_Category;
     }
 
-    public long getShop_ID() {
+    public String getShop_ID() {
         return shop_ID;
     }
 
-    public void setShop_ID(long shop_ID) {
+    public void setShop_ID(String shop_ID) {
         this.shop_ID = shop_ID;
     }
 
@@ -69,15 +101,6 @@ public class Shop {
         this.shop_Name = shop_Name;
     }
 
-    @Override
-    public String toString() {
-        return "Shop{" +
-                "shop_Category='" + shop_Category + '\'' +
-                ", shop_ID=" + shop_ID +
-                ", shop_Name='" + shop_Name + '\'' +
-                ", shop_location='" + shop_location + '\'' +
-                '}';
-    }
 }
 
 

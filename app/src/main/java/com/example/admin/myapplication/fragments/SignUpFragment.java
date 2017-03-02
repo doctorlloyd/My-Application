@@ -35,7 +35,7 @@ public class SignUpFragment extends Fragment{
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         view = rootView;
-       firebaseUser = mAuth.getCurrentUser( );
+       firebaseUser = mAuth.getCurrentUser();
         initializeViews();
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
