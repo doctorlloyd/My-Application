@@ -1,13 +1,23 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.admin.myapplication.fragments.FurnitureItemRegistration">
-
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:transitionName="@string/app_name"
+        android:elevation="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
     <!-- TODO: Update blank fragment layout -->
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -128,7 +138,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/etPercentagePercentageOFF"
+            android:id="@+id/etFurniturePercentageOFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -178,6 +188,32 @@
             android:hint="Color"
             android:inputType="textAutoCorrect" />
     </android.support.design.widget.TextInputLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/imgbtn_item">
+        </ImageButton>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:text="Upload Shop Logo" />
+    </RelativeLayout>
+    <Button
+        android:id="@+id/item_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:layout_gravity="center"
+        android:background="@drawable/my_buttons"
+        android:elevation="12dp"
+        android:text="Add Item"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
 </ScrollView>

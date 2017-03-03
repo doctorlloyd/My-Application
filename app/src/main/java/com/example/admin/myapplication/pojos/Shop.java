@@ -23,9 +23,10 @@ public class Shop implements Serializable {
     private String email;
     private String contact;
     private String image;
+
     String password;
 
-    public Shop(String shop_Category, String shop_ID, String shop_location, String shop_Name,String email, String contact, String password) {
+    public Shop(String shop_Category, String shop_ID, String shop_location, String shop_Name,String email, String contact, String password,String image) {
         this.shop_Category = shop_Category;
         this.shop_ID = shop_ID;
         this.shop_location = shop_location;
@@ -33,6 +34,19 @@ public class Shop implements Serializable {
         this.email = email;
         this.contact = contact;
         this.password = password;
+        this.image = image;
+    }
+
+
+    public Shop() {
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Shop(String shop_location, String shop_Name) {

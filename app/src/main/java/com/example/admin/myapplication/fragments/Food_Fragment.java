@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class Food_Fragment extends Fragment implements SearchView.OnQueryTextListener{
-    public static final String TAG = Furniture_Fragment.class.getSimpleName();
+    public static final String TAG = Food_Fragment.class.getSimpleName();
     private SearchView searchLocation;
     /*
     *** Declaring database reference

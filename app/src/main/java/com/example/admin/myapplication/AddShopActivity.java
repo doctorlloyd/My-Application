@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.admin.myapplication.activities.HomeScreen;
 import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +31,7 @@ public class AddShopActivity extends AppCompatActivity {
     private EditText etName;
     private EditText etLocation;
     private ImageButton imageButton;
-    private Button btnAdd;
+    private Button btnAdd, btnNext;
 
     Uri imageUri;
 
@@ -49,6 +50,16 @@ public class AddShopActivity extends AppCompatActivity {
         etName = (EditText) findViewById(R.id.etName);
         imageButton =(ImageButton)findViewById(R.id.imgb_Shop);
         btnAdd = (Button) findViewById(R.id.btn_add);
+        btnNext = (Button) findViewById(R.id.button_next);
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(), DisplayActivity.class));
+
+            }
+        });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,11 +111,9 @@ public class AddShopActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     Uri downloadUri = taskSnapshot.getDownloadUrl();
-
+//
                     DatabaseReference newShop = mDatabaseReference.push();
 
-//                    String key = mDatabaseReference.push().getKey();
-                    
                     newShop.child("name").setValue(name);
                     newShop.child("location").setValue(location);
                     newShop.child("img").setValue(downloadUri.toString());
