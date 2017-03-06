@@ -155,11 +155,29 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etClotheReducedPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Reduced Price"
+            android:inputType="textAutoCorrect" />
+    </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etClotheReducedPrice"
+                android:id="@+id/etClotheSaleDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -169,7 +187,7 @@
                 android:background="@drawable/edit_text"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Reduced Price"
+                android:hint="Sale Duration"
                 android:inputType="textAutoCorrect" />
         </android.support.design.widget.TextInputLayout>
         <RelativeLayout
@@ -178,7 +196,7 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:id="@+id/imgbtn_item">
+                android:id="@+id/imgbtn_clothing_item">
             </ImageButton>
             <TextView
                 android:layout_width="match_parent"
@@ -188,7 +206,7 @@
                 android:text="Upload Shop Logo" />
         </RelativeLayout>
         <Button
-            android:id="@+id/item_register"
+            android:id="@+id/btnclothe_item_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"

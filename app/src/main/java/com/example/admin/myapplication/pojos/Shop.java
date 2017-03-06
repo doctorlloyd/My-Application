@@ -11,11 +11,6 @@ import java.io.Serializable;
 public class Shop implements Serializable {
     public static final String Var_Table = Shop.class.getSimpleName();
 
-    public static final String Var_Shop_ID = "Shop_ID";
-    public static final String Var_Shop_Name = "Shop_Name";
-    public static final String Var_Shop_Category = "Shop_Category";
-    public static final String Var_Shop_location = "Shop_location";
-
     private String shop_ID;
     private String shop_Name;
     private String shop_Category;

@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import com.example.admin.myapplication.fragments.ClothingRegistration;
-import com.example.admin.myapplication.fragments.Clothing_Fragment;
 import com.example.doc.final_project.R;
 
 public class Item_Registration extends AppCompatActivity {

@@ -48,7 +48,7 @@ public class Clothing_Fragment extends Fragment implements SearchView.OnQueryTex
         *** Creating an Intent that would trigger the Google maps API....
         *** After it will then set the location entered as destination point.
          */
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "+query));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "+query));
         startActivity(intent);
         /*
         ***

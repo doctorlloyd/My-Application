@@ -94,25 +94,19 @@ public class LoginFragment extends Fragment{
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
-                        Intent intent = new Intent(getActivity(), Item_Registration.class);
 
-//                        intent.putExtra("fragment_category",_category);
-//                        intent.putExtra("shop_name",shop);
-                        startActivity(intent);
-                        getActivity().finish();
 
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(getActivity(), R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
+                        }else {
+                            Intent intent = new Intent(getActivity(), Item_Registration.class);
+//                        intent.putExtra("fragment_category",_category);
+//                        intent.putExtra("shop_name",shop);
+                            startActivity(intent);
+                            getActivity().finish();
                         }
-
-                        // [START_EXCLUDE]
-                        if (!task.isSuccessful()) {
-//                            mStatusTextView.setText(R.string.auth_failed);
-                        }
-//                        hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
         // [END sign_in_with_email]

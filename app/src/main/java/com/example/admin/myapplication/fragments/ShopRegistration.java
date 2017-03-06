@@ -41,11 +41,11 @@ import static android.content.ContentValues.TAG;
 
 public class ShopRegistration extends Fragment implements View.OnClickListener {
 
-    public static String TAG =  ClothingRegistration.class.getSimpleName();
-    private String[] array = {"FOOD","CLOTHING","FURNITURE"};
+    public static String TAG = ClothingRegistration.class.getSimpleName();
+    private String[] array = {"FOOD", "CLOTHING", "FURNITURE"};
     private Spinner spinner;
-    private EditText etName,etAddress,etContact,etConfirmPassword;
-    private EditText etEmail,etPassword;
+    private EditText etName, etAddress, etContact, etConfirmPassword;
+    private EditText etEmail, etPassword;
     private Button btnCancel, btnSignUp;
     private FirebaseUser user;
     private String uid = null;
@@ -62,11 +62,12 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
 
     // [START declare_auth_listener]
     private FirebaseAuth.AuthStateListener mAuthListener;
+
     // [END declare_auth_listener]
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.shop_registration,container,false);
+        View rootView = inflater.inflate(R.layout.shop_registration, container, false);
 
         mStorageReference = FirebaseStorage.getInstance().getReference();
 
@@ -75,7 +76,7 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
         initializeViews();
 
         //databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,array);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, array);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -139,6 +140,7 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
     // [END on_stop_remove_listener]
     private void createAccount(final String email, final String password) {
         Log.d(TAG, "createAccount:" + email);
@@ -154,8 +156,7 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
-                        if (task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             uid = user.getUid();
                             databaseReference = FirebaseDatabase.getInstance().getReference("Shop");
 
@@ -171,16 +172,17 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
                                     if (!TextUtils.isEmpty(etAddress.getText().toString()) && !TextUtils.isEmpty(etName.getText().toString()) && !TextUtils.isEmpty(etContact.getText().toString())) {
                                         Uri downloadUri = taskSnapshot.getDownloadUrl();
 
-                                        Shop shop = new Shop(_category, uid, _location, shopName, email, _contact, password, downloadUri.toString());
-                                        String key = databaseReference.push().getKey();
-                                        databaseReference.child(key).setValue(shop);
+
+                                        String _key = databaseReference.push().getKey();
+                                        Shop shop = new Shop(_category, _key, _location, shopName, email, _contact, password, downloadUri.toString());
+                                        databaseReference.child(_key).setValue(shop);
 
                                         Intent intent = new Intent(getActivity(), Item_Registration.class);
                                         intent.putExtra("fragment_category", _category);
                                         intent.putExtra("shop_name", shop);
                                         startActivity(intent);
                                         getActivity().finish();
-                                    }else{
+                                    } else {
 
                                     }
                                 }
@@ -204,6 +206,7 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
                 });
         // [END create_user_with_email]
     }
+
     private void signOut() {
         mAuth.signOut();
     }
@@ -220,7 +223,7 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
         }
 
         String password = etPassword.getText().toString();
-        if (TextUtils.isEmpty(password)||TextUtils.isEmpty(etConfirmPassword.getText().toString())) {
+        if (TextUtils.isEmpty(password) || TextUtils.isEmpty(etConfirmPassword.getText().toString())) {
             etPassword.setError("Required.");
             valid = false;
         } else {
@@ -229,7 +232,7 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
         return valid;
     }
 
-    private void initializeViews(){
+    private void initializeViews() {
 
         etAddress = (EditText) view.findViewById(R.id.etShopAddress);
         etContact = (EditText) view.findViewById(R.id.etShopContact);
@@ -240,13 +243,12 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
         spinner = (Spinner) view.findViewById(R.id.spShopCategory);
         btnSignUp = (Button) view.findViewById(R.id.shopSignUp);
         btnCancel = (Button) view.findViewById(R.id.shopSendVerification);
-        imageButton =(ImageButton)view.findViewById(R.id.imgb_Shop);
+        imageButton = (ImageButton) view.findViewById(R.id.imgb_Shop);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.btnSignUp:
 
                 break;
@@ -257,11 +259,12 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
 
             imageUri = data.getData();
             imageButton.setImageURI(imageUri);

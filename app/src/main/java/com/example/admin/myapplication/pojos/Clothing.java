@@ -5,33 +5,25 @@ package com.example.admin.myapplication.pojos;
  */
 
 public class Clothing {
-    public static final String Var_Table = Clothing.class.getSimpleName();
+    public static final String TAG = Clothing.class.getSimpleName();
 
-    public static final String Var_Clothing_ID = "Clothing_ID";
-    public static final String Var_ClothingType = "Clothing_Type";
-    public static final String Var_Clothing_Percentage_Off = "Clothing_Percentage_Off";
-    public static final String Var_ClothingI_Reduced_Price = "Clothing_Reduced_Price";
-    public static final String Var_Clothing_Normal_Price = "Clothing_Normal_Price";
-    public static final String Var_Clothing_Shop_ID = "Clothing_Shop_ID";
-    public static final String Var_Clothing_Size = "Clothing_Size";
-    public static final String Var_Clothing_Brand_Name = "Clothing_Brand_Name";
-    public static final String Var_Clothing_Duration = "Clothing_Duration";
-    public static final String getVar_Clothing_Specification = "Clothing_Specification";
-
-    private long clothing_ID;
+    private String clothing_ID;
     private String clothing_Type;
     private int clothing_Percentage_Off;
     private double clothing_Reduced_Price;
     private double clothing_Normal_Price;
-    private long clothing_Shop_ID;
+    private String clothing_Shop_ID;
     private String clothing_Size;
     private String clothing_Brand_Name;
     private String clothing_Specification;
     /*
     *** Duration must be entered in days....
      */
-    private long clothing_Duration;
-    public Clothing(String clothing_Brand_Name, long clothing_Duration, long clothing_ID, double clothing_Normal_Price, int clothing_Percentage_Off, double clothing_Reduced_Price, long clothing_Shop_ID, String clothing_Size, String clothing_Specification , String clothing_Type) {
+    private String clothing_Duration;
+    private String image;
+
+
+    public Clothing(String image,String clothing_Brand_Name, String clothing_Duration, String clothing_ID, double clothing_Normal_Price, int clothing_Percentage_Off, double clothing_Reduced_Price, String clothing_Shop_ID, String clothing_Size, String clothing_Specification , String clothing_Type) {
         this.clothing_Brand_Name = clothing_Brand_Name;
         this.clothing_Duration = clothing_Duration;
         this.clothing_ID = clothing_ID;
@@ -42,16 +34,19 @@ public class Clothing {
         this.clothing_Size = clothing_Size;
         this.clothing_Type = clothing_Type;
         this.clothing_Specification = clothing_Specification;
+        this.image = image;
 
     }
 
-    public Clothing(String clothing_Brand_Name, long clothing_ID, long clothing_Shop_ID) {
+    public Clothing(String clothing_Brand_Name, String clothing_ID, String clothing_Shop_ID) {
         this.clothing_Brand_Name = clothing_Brand_Name;
         this.clothing_ID = clothing_ID;
         this.clothing_Shop_ID = clothing_Shop_ID;
     }
 
-    public Clothing() {
+    public Clothing(String clothing_Brand_Name,String clothing_Type) {
+        this.clothing_Brand_Name = clothing_Brand_Name;
+        this.clothing_Type = clothing_Type;
     }
 
     public String getClothing_Brand_Name() {
@@ -62,19 +57,27 @@ public class Clothing {
         this.clothing_Brand_Name = clothing_Brand_Name;
     }
 
-    public long getClothing_Duration() {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getClothing_Duration() {
         return clothing_Duration;
     }
 
-    public void setClothing_Duration(long clothing_Duration) {
+    public void setClothing_Duration(String clothing_Duration) {
         this.clothing_Duration = clothing_Duration;
     }
 
-    public long getClothing_ID() {
+    public String getClothing_ID() {
         return clothing_ID;
     }
 
-    public void setClothing_ID(long clothing_ID) {
+    public void setClothing_ID(String clothing_ID) {
         this.clothing_ID = clothing_ID;
     }
 
@@ -102,11 +105,11 @@ public class Clothing {
         this.clothing_Reduced_Price = clothing_Reduced_Price;
     }
 
-    public long getClothing_Shop_ID() {
+    public String getClothing_Shop_ID() {
         return clothing_Shop_ID;
     }
 
-    public void setClothing_Shop_ID(long clothing_Shop_ID) {
+    public void setClothing_Shop_ID(String clothing_Shop_ID) {
         this.clothing_Shop_ID = clothing_Shop_ID;
     }
     public String getClothing_Specification() {
