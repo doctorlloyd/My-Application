@@ -12,16 +12,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.admin.myapplication.pojos.Clothing;
+import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -47,7 +54,7 @@ public class ClothingRegistration extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.clothing_registration, container, false);
@@ -55,6 +62,7 @@ public class ClothingRegistration extends Fragment {
         view = rootView;
         initialize();
         mStorageReference = FirebaseStorage.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Shop");
 
 
         //
@@ -71,7 +79,27 @@ public class ClothingRegistration extends Fragment {
         btn_add_clothe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addAnItem();
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds: dataSnapshot.getChildren()){
+                            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "+ ds.getKey());
+                            Shop shop = (Shop) ds.getValue();
+
+                            String emailObject = shop.getEmail();
+                            if(shop.getEmail().equals(user.getEmail()))
+                            {
+                                databaseReference.child(ds.getKey()).child("Clothing").child("Item").setValue(shop);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+//                addAnItem();
             }
         });
         return rootView;
@@ -102,6 +130,31 @@ public class ClothingRegistration extends Fragment {
                     String clothing_Size = etClotheSize.getText().toString();
                     String clothing_Brand_Name = etClotheBrandName.getText().toString();
                     String clothing_Specification = etClotheSpecification.getText().toString();
+
+
+                    ValueEventListener updateShop = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
+                            {
+                                System.out.println("--------------------------------------- "+dataSnapshot1.getKey());
+                            }
+
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Toast.makeText(getActivity().getBaseContext(),"Unable to fetch data from datbase",Toast.LENGTH_LONG).show();
+                        }
+                    };
+
+
+
+
+
+
+
+
+
 
                     Uri downloadUri = taskSnapshot.getDownloadUrl();
                     String image = downloadUri.toString();

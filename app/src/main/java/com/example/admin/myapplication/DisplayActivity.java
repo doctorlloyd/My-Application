@@ -66,11 +66,6 @@ public class DisplayActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(firebaseRecyclerAdapter);
 
-
-
-        ////
-
-
     }
 
     public static class ShopViewHolder extends RecyclerView.ViewHolder{
