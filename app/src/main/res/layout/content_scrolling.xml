@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/images"
-
+                android:id="@+id/itemIcon"
                 >
 
             </ImageView>
@@ -29,8 +29,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#000000"
+                android:background="#ffffff"
                 android:gravity="end"
+                android:id="@+id/itemPrice"
                 android:text="R 32.00" />
         </FrameLayout>
 
@@ -39,11 +40,13 @@
             android:layout_height="wrap_content"
             android:textAllCaps="true"
             android:textSize="32dp"
+            android:id="@+id/itemName"
             android:text="Shop name" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/itemSpecification"
             android:text="@string/large_text" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

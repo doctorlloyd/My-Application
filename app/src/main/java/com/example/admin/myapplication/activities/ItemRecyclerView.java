@@ -1,32 +1,23 @@
-package com.example.admin.myapplication;
+package com.example.admin.myapplication.activities;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.admin.myapplication.activities.HomeScreen;
-import com.example.admin.myapplication.pojos.Shop;
+import com.example.admin.myapplication.pojos.Clothing;
 import com.example.doc.final_project.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-/**
- * Created by Admin on 2017/03/03.
- */
-
-public class DisplayActivity extends AppCompatActivity {
-
+public class ItemRecyclerView extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
-
     private RecyclerView recyclerView;
 
     @Override
@@ -34,13 +25,14 @@ public class DisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.global_list);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Shop");
+        String _key = getIntent().getStringExtra("_key");
+        String _category = getIntent().getStringExtra("_category");
+        System.out.println("========= KEY: "+_key+"  ============= CATEGORY: "+_category);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Shop").child(_key).child("Clothing");
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
     }
 
 
@@ -48,18 +40,18 @@ public class DisplayActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<Shop, ShopViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Shop, ShopViewHolder>(
-                Shop.class,
-                R.layout.view_row,
-                ShopViewHolder.class,
+        FirebaseRecyclerAdapter<Clothing, ClothingViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Clothing, ClothingViewHolder>(
+                Clothing.class,
+                R.layout.item_raw_view,
+                ClothingViewHolder.class,
                 mDatabaseReference
 
         ) {
             @Override
-            protected void populateViewHolder(ShopViewHolder viewHolder, Shop model, int position) {
+            protected void populateViewHolder(ClothingViewHolder viewHolder, Clothing model, int position) {
                 final String _key = getRef(position).getKey();
-                viewHolder.setName(model.getShop_Name());
-                viewHolder.setLocation(model.getShop_location());
+                viewHolder.setName(model.getClothing_Brand_Name());
+                viewHolder.setDescription(model.getClothing_Specification());
                 viewHolder.setImg(getApplicationContext(), model.getImage());
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
@@ -78,11 +70,11 @@ public class DisplayActivity extends AppCompatActivity {
 
     }
 
-    public static class ShopViewHolder extends RecyclerView.ViewHolder{
+    public static class ClothingViewHolder extends RecyclerView.ViewHolder{
 
         View mView;
 
-        public ShopViewHolder(View itemView) {
+        public ClothingViewHolder(View itemView) {
             super(itemView);
 
             mView = itemView;
@@ -91,21 +83,21 @@ public class DisplayActivity extends AppCompatActivity {
 
         public void setName(String name){
 
-            TextView tvName = (TextView) mView.findViewById(R.id.tv_View_Name);
+            TextView tvName = (TextView) mView.findViewById(R.id.itemName);
             tvName.setText(name);
 
         }
 
-        public void setLocation(String location){
+        public void setDescription(String description){
 
-            TextView tvLocation = (TextView) mView.findViewById(R.id.tv_view_Location);
-            tvLocation.setText(location);
+            TextView tvLocation = (TextView) mView.findViewById(R.id.itemSpecification);
+            tvLocation.setText(description);
 
         }
 
         public void setImg(Context c, String img){
 
-            ImageView imageView = (ImageView) mView.findViewById(R.id.our_image);
+            ImageView imageView = (ImageView) mView.findViewById(R.id.itemIcon);
             Picasso.with(c).load(img).into(imageView);
 
         }

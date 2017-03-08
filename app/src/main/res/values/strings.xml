@@ -117,7 +117,7 @@
     <string name="title_activity_shop_register_or_login">ShopRegisterOrLogin</string>
     <string name="title_shop_login">Login</string>
     <string name="title_shop_signup">Sign Up</string>
-    <string name="auth_failed">Failed to create user</string>
+    <string name="auth_failed">Failed to login</string>
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
 
     <!--<string-array name="Category">-->

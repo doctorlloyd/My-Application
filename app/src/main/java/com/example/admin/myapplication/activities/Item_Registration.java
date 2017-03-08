@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-
 import com.example.admin.myapplication.fragments.ClothingRegistration;
 import com.example.doc.final_project.R;
 
@@ -15,9 +14,7 @@ public class Item_Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item__registration);
 
-
         String _categoty = getIntent().getStringExtra("fragment_category");
-
         try {
             if (_categoty.equalsIgnoreCase("clothing")) {
                 ClothingRegistration f = new ClothingRegistration();

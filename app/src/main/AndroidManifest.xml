@@ -26,31 +26,29 @@
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-         <activity
-         android:name="com.example.admin.myapplication.activities.SecondScreen"
-         android:icon="@mipmap/ic_launcher">
-         <intent-filter>
-         <action android:name="android.intent.action.SECOND_SCREEN" />
-         <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-         </activity>
-
-         <activity
-         android:name="com.example.admin.myapplication.activities.HomeScreen">
-         <intent-filter>
-         <action android:name="android.intent.action.MAIN" />
-         <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-         </activity>
-
-        <activity android:name="com.example.admin.myapplication.DisplayActivity">
+        <activity
+            android:name="com.example.admin.myapplication.activities.SecondScreen"
+            android:icon="@mipmap/ic_launcher">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SECOND_SCREEN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.admin.myapplication.activities.HomeScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.admin.myapplication.DisplayActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <!-- <activity android:name="com.example.admin.myapplication.activities.LoginActivity"> -->
         <!-- <intent-filter> -->
@@ -74,7 +72,8 @@
         <!-- <action android:name="android.intent.action.MAP_ACTIVITY" /> -->
         <!-- <category android:name="android.intent.category.DEFAULT" /> -->
         <!-- </intent-filter> -->
-        <!-- </activity> --><!---->
+        <!-- </activity> -->
+        <!--  -->
 
         <activity
             android:name="com.example.admin.myapplication.activities.ShopRegisterOrLogin"
@@ -83,6 +82,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -95,24 +95,37 @@
         <!-- </activity> -->
 
         <activity android:name="com.example.admin.myapplication.AddShopActivity">
-        <intent-filter>
-        <action android:name="android.intent.action.ADD_SHOP" />
+            <intent-filter>
+                <action android:name="android.intent.action.ADD_SHOP" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-
         <activity android:name="com.example.admin.myapplication.activities.Splash">
-        <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-
         <activity android:name="com.example.admin.myapplication.activities.Item_Registration">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.admin.myapplication.activities.ItemRecyclerView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.admin.myapplication.activities.ShopsRecyclerView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

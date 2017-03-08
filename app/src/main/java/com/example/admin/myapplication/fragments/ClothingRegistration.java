@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.admin.myapplication.pojos.Clothing;
 import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,8 +28,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.List;
-
 import static android.app.Activity.RESULT_OK;
 
 public class ClothingRegistration extends Fragment {
@@ -37,13 +35,15 @@ public class ClothingRegistration extends Fragment {
     public static String TAG = ClothingRegistration.class.getSimpleName();
     private EditText etClothingID, etClothingSaleDuration, etClothingType, etClotheBrandName, etClotheSpecification, etClotheSize, etClotheNormalPrice, etClothePercentageOFF, etClotheReducedPrice;
     private Button btn_add_clothe;
-    private FirebaseUser user;
-    private String uid;
+    private FirebaseAuth user;
+    private FirebaseUser fbuser;
+    private Clothing clothing;
     private static final int GALLERY_INTENT = 1;
     private ImageButton imageButton;
     private View view;
     private DatabaseReference databaseReference;
     private Uri imageUri;
+    private String image;
 
 
     private StorageReference mStorageReference;
@@ -56,14 +56,17 @@ public class ClothingRegistration extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.clothing_registration, container, false);
-        //System.out.println("+======================================== "+ newClothingReg.getKey());
+
         view = rootView;
+
         initialize();
+
         mStorageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Shop");
-
+        user = FirebaseAuth.getInstance();
+        fbuser = user.getCurrentUser();
 
         //
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -79,27 +82,7 @@ public class ClothingRegistration extends Fragment {
         btn_add_clothe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds: dataSnapshot.getChildren()){
-                            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "+ ds.getKey());
-                            Shop shop = (Shop) ds.getValue();
-
-                            String emailObject = shop.getEmail();
-                            if(shop.getEmail().equals(user.getEmail()))
-                            {
-                                databaseReference.child(ds.getKey()).child("Clothing").child("Item").setValue(shop);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-//                addAnItem();
+                addAnItem();
             }
         });
         return rootView;
@@ -108,18 +91,29 @@ public class ClothingRegistration extends Fragment {
     //[CREATING AN OBJECT OF A CLOTHE]
     public void addAnItem() {
         if (validateNullInput()) {
-//             [START create_user_with_email]
-//            uid = user.getUid();
-            final DatabaseReference newClothingReg = FirebaseDatabase.getInstance().getReference();
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("Shop");
-
-            //System.out.println("+======================================== "+ newClothingReg.getKey());
 
 
             StorageReference filePath = mStorageReference.child("my_image").child(imageUri.getLastPathSegment());
             filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+                    image = downloadUri.toString();
+                    databaseReference.addValueEventListener(eventListener);
+                }
+            });
+        }
+    }
+
+    ValueEventListener eventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            for (DataSnapshot ds: dataSnapshot.getChildren()){
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "+ ds.getKey());
+                Shop shop = ds.getValue(Shop.class);
+                if(shop.getEmail().equals(fbuser.getEmail()))
+                {
                     String clothing_ID = etClothingID.getText().toString();
                     String clothing_type = etClothingType.getText().toString();
                     String clothingSale_Duration = etClothingSaleDuration.getText().toString();
@@ -131,42 +125,19 @@ public class ClothingRegistration extends Fragment {
                     String clothing_Brand_Name = etClotheBrandName.getText().toString();
                     String clothing_Specification = etClotheSpecification.getText().toString();
 
-
-                    ValueEventListener updateShop = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
-                            {
-                                System.out.println("--------------------------------------- "+dataSnapshot1.getKey());
-                            }
-
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Toast.makeText(getActivity().getBaseContext(),"Unable to fetch data from datbase",Toast.LENGTH_LONG).show();
-                        }
-                    };
-
-
-
-
-
-
-
-
-
-
-                    Uri downloadUri = taskSnapshot.getDownloadUrl();
-                    String image = downloadUri.toString();
-                    Clothing clothing = new Clothing(image, clothing_Brand_Name, clothingSale_Duration, clothing_ID, clothing_Normal_Price, clothing_Percentage_Off, clothing_Reduced_Price, clothing_Shop_ID, clothing_Size, clothing_Specification, clothing_type);
-
-                    String _key = databaseReference.push().getKey();
-                    System.out.println("===========================: "+_key);
-                    databaseReference.child(_key).child("Clothing").child("Item").setValue(clothing);
+                    clothing = new Clothing(image, clothing_Brand_Name, clothingSale_Duration, clothing_ID, clothing_Normal_Price, clothing_Percentage_Off, clothing_Reduced_Price, clothing_Shop_ID, clothing_Size, clothing_Specification, clothing_type);
+                    databaseReference.child(ds.getKey()).child("Clothing").push().setValue(clothing);
+                    databaseReference.removeEventListener(this);
+                    return;
                 }
-            });
+            }
         }
-    }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
     public boolean validateNullInput() {
         if (TextUtils.isEmpty(etClothePercentageOFF.getText().toString()))
@@ -213,6 +184,5 @@ public class ClothingRegistration extends Fragment {
             imageUri = data.getData();
             imageButton.setImageURI(imageUri);
         }
-
     }
 }

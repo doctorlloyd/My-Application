@@ -49,6 +49,9 @@ public class Clothing {
         this.clothing_Type = clothing_Type;
     }
 
+    public Clothing() {
+    }
+
     public String getClothing_Brand_Name() {
         return clothing_Brand_Name;
     }

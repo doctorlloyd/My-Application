@@ -1,13 +1,13 @@
 package com.example.admin.myapplication.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
@@ -20,8 +20,11 @@ import com.squareup.picasso.Picasso;
  * Created by Doc on 2017/02/02.
  */
 public class HomeScreen extends AppCompatActivity {
+    Shop shop = new Shop();
 
     private DatabaseReference mDatabaseReference;
+
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,8 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.global_list);
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Shops");
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
     }
 
@@ -47,13 +52,26 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             protected void populateViewHolder(ShopViewHolder viewHolder, Shop model, int position) {
 
+                final String key = getRef(position).getKey();
+
                 viewHolder.setName(model.getShop_Name());
                 viewHolder.setLocation(model.getShop_location());
                 viewHolder.setImg(getApplicationContext(), model.getImage());
 
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Toast.makeText(getApplicationContext(), "Key: " + key, Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
 
             }
         };
+
+        recyclerView.setAdapter(firebaseRecyclerAdapter);
 
     }
 
