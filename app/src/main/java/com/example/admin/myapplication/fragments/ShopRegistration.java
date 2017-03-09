@@ -39,16 +39,16 @@ import static android.content.ContentValues.TAG;
  * Created by Doc on 2017/02/21.
  */
 
-public class ShopRegistration extends Fragment implements View.OnClickListener {
+public class ShopRegistration extends Fragment{
 
     public static String TAG = ClothingRegistration.class.getSimpleName();
-    private String[] array = {"FOOD", "CLOTHING", "FURNITURE"};
+    private String[] array = {"Food", "Clothing", "Furniture"};
     private Spinner spinner;
     private EditText etName, etAddress, etContact, etConfirmPassword;
     private EditText etEmail, etPassword;
     private Button btnCancel, btnSignUp;
     private FirebaseUser user;
-    private String uid = null;
+    private String uid;
     private static final int GALLERY_INTENT = 1;
     private ImageButton imageButton;
     private View view;
@@ -244,20 +244,6 @@ public class ShopRegistration extends Fragment implements View.OnClickListener {
         btnSignUp = (Button) view.findViewById(R.id.shopSignUp);
         btnCancel = (Button) view.findViewById(R.id.shopSendVerification);
         imageButton = (ImageButton) view.findViewById(R.id.imgb_Shop);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnSignUp:
-
-                break;
-            case R.id.shopSendVerification:
-
-                break;
-            default:
-                break;
-        }
     }
 
     @Override
