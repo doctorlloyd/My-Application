@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 public class ShopsRecyclerView extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private RecyclerView recyclerView;
+    private String _key;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,24 +51,37 @@ public class ShopsRecyclerView extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(ShopViewHolder viewHolder, final Shop model, int position) {
-                final String _key = getRef(position).getKey();
                 viewHolder.setName(model.getShop_Name());
                 viewHolder.setLocation(model.getShop_location());
                 viewHolder.setImg(getApplicationContext(), model.getImage());
-
+                _key = getRef(position).getKey();
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(),ItemRecyclerView.class);
-                        intent.putExtra("_key",_key);
-                        intent.putExtra("_category",model.getShop_Category());
-                        startActivity(intent);
-                        finish();
+                        if(model.getShop_Category().equalsIgnoreCase("Clothing")){
+                            Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(),ClothingRecyclerView.class);
+                            intent.putExtra("_key",_key);
+                            intent.putExtra("_category",model.getShop_Category());
+                            intent.putExtra("shop_name",model.getShop_Name());
+                            startActivity(intent);
+                        }else if(model.getShop_Category().equalsIgnoreCase("Food")){
+                            Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(),FoodRecyclerView.class);
+                            intent.putExtra("_key",_key);
+                            intent.putExtra("_category",model.getShop_Category());
+                            intent.putExtra("shop_name",model.getShop_Name());
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(),FurnitureRecyclerView.class);
+                            intent.putExtra("_key",_key);
+                            intent.putExtra("_category",model.getShop_Category());
+                            intent.putExtra("shop_name",model.getShop_Name());
+                            startActivity(intent);
+                        }
                     }
                 });
-
             }
         };
 

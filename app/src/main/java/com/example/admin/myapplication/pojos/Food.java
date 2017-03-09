@@ -1,10 +1,12 @@
 package com.example.admin.myapplication.pojos;
 
+import java.io.Serializable;
+
 /**
  * Created by Doc on 2017/02/02.
  */
 
-public class Food {
+public class Food implements Serializable{
     public static final String Var_Table = Food.class.getSimpleName();
 
     private String food_ID;

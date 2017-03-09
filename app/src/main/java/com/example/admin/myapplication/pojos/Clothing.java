@@ -1,10 +1,12 @@
 package com.example.admin.myapplication.pojos;
 
+import java.io.Serializable;
+
 /**
  * Created by Doc on 2017/02/02.
  */
 
-public class Clothing {
+public class Clothing implements Serializable{
     public static final String TAG = Clothing.class.getSimpleName();
 
     private String clothing_ID;

@@ -42,20 +42,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.admin.myapplication.DisplayActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <!-- <activity android:name="com.example.admin.myapplication.activities.LoginActivity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
+         <activity android:name="com.example.admin.myapplication.activities.LoginActivity">
+         <intent-filter>
+         <action android:name="android.intent.action.MAIN" />
+         <category android:name="android.intent.category.DEFAULT" />
+         </intent-filter>
+         </activity>
 
 
         <!-- Google maps services key and version -->
@@ -66,14 +59,14 @@
         <meta-data
             android:name="com.google.android.gms.vision"
             android:value="@integer/google_play_services_version" />
+        <!--END OF [Google maps services key and version] -->
 
-        <!-- <activity android:name="com.example.admin.myapplication.activities.MapActivity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAP_ACTIVITY" /> -->
-        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <!--  -->
+         <activity android:name="com.example.admin.myapplication.activities.MapActivity">
+         <intent-filter>
+         <action android:name="android.intent.action.MAP_ACTIVITY" />
+         <category android:name="android.intent.category.DEFAULT" />
+         </intent-filter>
+         </activity>
 
         <activity
             android:name="com.example.admin.myapplication.activities.ShopRegisterOrLogin"
@@ -87,20 +80,6 @@
             </intent-filter>
         </activity>
 
-        <!-- <activity android:name="com.example.admin.myapplication.Main2Activity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-
-        <activity android:name="com.example.admin.myapplication.AddShopActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.ADD_SHOP" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity android:name="com.example.admin.myapplication.activities.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -115,7 +94,21 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.admin.myapplication.activities.ItemRecyclerView">
+        <activity android:name="com.example.admin.myapplication.activities.ClothingRecyclerView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.admin.myapplication.activities.FoodRecyclerView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.admin.myapplication.activities.FurnitureRecyclerView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
