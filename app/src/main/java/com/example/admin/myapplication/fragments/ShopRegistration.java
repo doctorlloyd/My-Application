@@ -178,8 +178,8 @@ public class ShopRegistration extends Fragment{
                                         databaseReference.child(_key).setValue(shop);
 
                                         Intent intent = new Intent(getActivity(), Item_Registration.class);
-                                        intent.putExtra("fragment_category", _category);
-                                        intent.putExtra("shop_name", shop);
+//                                        intent.putExtra("fragment_category", _category);
+//                                        intent.putExtra("shop_name", shop);
                                         startActivity(intent);
                                         getActivity().finish();
                                     } else {

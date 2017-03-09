@@ -13,12 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import com.example.admin.myapplication.pojos.Furniture;
+import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -26,19 +31,22 @@ import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Created by Doc
  */
 public class FurnitureItemRegistration extends Fragment {
 
     public static String TAG = FurnitureItemRegistration.class.getSimpleName();
     private EditText etFurnitureID, etFurnitureSaleDuration, etFurnitureType, etFurnitureBrandName, etFurnitureSpecification, etFurnitureSize, etFurnitureNormalPrice, etFurniturePercentageOFF, etFurnitureReducedPrice, etFurnitureColor;
     private Button btn_add_furniture;
-    private FirebaseUser user;
+    private FirebaseUser fbuser;
+    private FirebaseAuth user;
     private String uid = null;
     private static final int GALLERY_INTENT = 1;
     private ImageButton imageButton;
     private View view;
     private DatabaseReference databaseReference;
-    Uri imageUri;
+    private Uri imageUri;
+    private String image;
 
     private StorageReference mStorageReference;
     // [START declare_auth]
@@ -62,7 +70,28 @@ public class FurnitureItemRegistration extends Fragment {
         view = rootView;
         initialize();
 
+        mStorageReference = FirebaseStorage.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Shop");
+        user = FirebaseAuth.getInstance();
+        fbuser = user.getCurrentUser();
 
+        //
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GALLERY_INTENT);
+            }
+        });
+        //
+        btn_add_furniture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addAnItem();
+            }
+        });
         return rootView;
     }
 
@@ -81,17 +110,34 @@ public class FurnitureItemRegistration extends Fragment {
         imageButton = (ImageButton) view.findViewById(R.id.imgbtn_furniture_item);
     }
 
-    //[CREATING AN OBJECT OF A FURNITURE]
+    //[CREATING AN OBJECT OF A CLOTHE]
     public void addAnItem() {
         if (validateNullInput()) {
-            uid = user.getUid();
-            databaseReference = FirebaseDatabase.getInstance().getReference("Shop").child("Clothing").child("Item");
-
-
             StorageReference filePath = mStorageReference.child("my_image").child(imageUri.getLastPathSegment());
             filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+                    image = downloadUri.toString();
+                    databaseReference.addValueEventListener(eventListener);
+                }
+            });
+        }else {
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:    Failed wrong input");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
+    }
+
+    ValueEventListener eventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            for (DataSnapshot ds: dataSnapshot.getChildren()){
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "+ ds.getKey());
+                Shop shop = ds.getValue(Shop.class);
+                if(shop.getEmail().equals(fbuser.getEmail()))
+                {
                     String furniture_ID = etFurnitureID.getText().toString();
                     String furniture_type = etFurnitureType.getText().toString();
                     String furnitureSale_Duration = etFurnitureSaleDuration.getText().toString();
@@ -100,22 +146,23 @@ public class FurnitureItemRegistration extends Fragment {
                     double furniture_Reduced_Price = Double.parseDouble(etFurnitureReducedPrice.getText().toString());
                     double furniture_Normal_Price = Double.parseDouble(etFurnitureNormalPrice.getText().toString());
                     String furniture_Shop_ID = uid;
-//                    String clothing_Shop_ID = databaseReference.getKey();
                     String furniture_Size = etFurnitureSize.getText().toString();
                     String furniture_Brand_Name = etFurnitureBrandName.getText().toString();
                     String furniture_Specification = etFurnitureSpecification.getText().toString();
 
-                    Uri downloadUri = taskSnapshot.getDownloadUrl();
-                    String image = downloadUri.toString();
-
                     Furniture furniture = new Furniture(furniture_Brand_Name, image, furniture_color, furniture_ID, furniture_Normal_Price, furniture_Percentage_Off, furniture_Reduced_Price, furniture_Shop_ID, furniture_Size, furnitureSale_Duration, furniture_Specification, furniture_type);
-                    String _key = databaseReference.push().getKey();
-                    databaseReference.child(_key).setValue(furniture);
-
+                    databaseReference.child(ds.getKey()).child("Furniture").push().setValue(furniture);
+                    databaseReference.removeEventListener(this);
+                    return;
                 }
-            });
+            }
         }
-    }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
     public boolean validateNullInput() {
         if (TextUtils.isEmpty(etFurniturePercentageOFF.getText().toString()))

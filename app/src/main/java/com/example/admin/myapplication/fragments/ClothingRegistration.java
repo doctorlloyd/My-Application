@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
 import com.example.admin.myapplication.pojos.Clothing;
 import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
@@ -27,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import static android.app.Activity.RESULT_OK;
 
 public class ClothingRegistration extends Fragment {
@@ -44,13 +42,10 @@ public class ClothingRegistration extends Fragment {
     private DatabaseReference databaseReference;
     private Uri imageUri;
     private String image;
-
-
     private StorageReference mStorageReference;
 
     public ClothingRegistration() {
         // Required empty public constructor
-
     }
 
     @Override
@@ -91,8 +86,6 @@ public class ClothingRegistration extends Fragment {
     //[CREATING AN OBJECT OF A CLOTHE]
     public void addAnItem() {
         if (validateNullInput()) {
-
-
             StorageReference filePath = mStorageReference.child("my_image").child(imageUri.getLastPathSegment());
             filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -102,9 +95,12 @@ public class ClothingRegistration extends Fragment {
                     databaseReference.addValueEventListener(eventListener);
                 }
             });
+        }else {
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:    Failed wrong input");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
     }
-
     ValueEventListener eventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -132,13 +128,11 @@ public class ClothingRegistration extends Fragment {
                 }
             }
         }
-
         @Override
         public void onCancelled(DatabaseError databaseError) {
 
         }
     };
-
     public boolean validateNullInput() {
         if (TextUtils.isEmpty(etClothePercentageOFF.getText().toString()))
             return false;
@@ -160,8 +154,6 @@ public class ClothingRegistration extends Fragment {
             return false;
         return true;
     }
-
-
     public void initialize() {
         etClothePercentageOFF = (EditText) view.findViewById(R.id.etClothePercentageOFF);
         etClotheBrandName = (EditText) view.findViewById(R.id.etClotheBrandName);
@@ -175,7 +167,6 @@ public class ClothingRegistration extends Fragment {
         btn_add_clothe = (Button) view.findViewById(R.id.btnclothe_item_register);
         imageButton = (ImageButton) view.findViewById(R.id.imgbtn_clothing_item);
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
