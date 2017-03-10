@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.admin.myapplication.pojos.Clothing;
+import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -22,16 +23,18 @@ import java.io.Serializable;
 public class ClothingRecyclerView extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private RecyclerView recyclerView;
-    private String shop_name;
+    private Shop shop;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.global_list);
 
+        shop = (Shop)getIntent().getSerializableExtra("model");
+
         String _key = getIntent().getStringExtra("_key");
-        String _category = getIntent().getStringExtra("_category");
-        shop_name = getIntent().getStringExtra("shop_name");
+        String _category = shop.getShop_Category();
+
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Shop").child(_key).child(_category);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -52,20 +55,19 @@ public class ClothingRecyclerView extends AppCompatActivity {
 
         ) {
             @Override
-            protected void populateViewHolder(ClothingViewHolder viewHolder, final Clothing model, int position) {
+            protected void populateViewHolder(ClothingViewHolder viewHolder, final Clothing item, int position) {
                 final String _key = getRef(position).getKey();
-                viewHolder.setName(model.getClothing_Brand_Name());
-                viewHolder.setDescription(model.getClothing_Specification());
-                viewHolder.setImg(getApplicationContext(), model.getImage());
+                viewHolder.setName(item.getClothing_Brand_Name());
+                viewHolder.setDescription(item.getClothing_Specification());
+                viewHolder.setImg(getApplicationContext(), item.getImage());
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(),Splash.class);
-                        intent.putExtra("model", model);
-                        intent.putExtra("_category","Clothing");
-                        intent.putExtra("shop_name",shop_name);
+                        intent.putExtra("item", item);
+                        intent.putExtra("shop",shop);
                         startActivity(intent);
                     }
                 });

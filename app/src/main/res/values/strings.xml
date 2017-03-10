@@ -119,6 +119,10 @@
     <string name="title_shop_signup">Sign Up</string>
     <string name="auth_failed">Failed to login</string>
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="title_activity_sample">Sample</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--<string-array name="Category">-->
     <!--<item>CLOTHING SHOP</item>-->

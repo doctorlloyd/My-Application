@@ -11,7 +11,7 @@ public class Food implements Serializable{
 
     private String food_ID;
     private String food_Type;
-    private int food_Amount_Off;
+    private double food_Amount_Off;
     private double food_Reduced_Price;
     private double food_Normal_Price;
     private String food_Shop_ID;
@@ -24,7 +24,7 @@ public class Food implements Serializable{
      */
     private String food_Special_Duration;
 
-    public Food(int food_Amount_Off,String image, String food_Brand_Name, String food_ID, double food_Normal_Price, double food_Reduced_Price, String food_Shop_ID, String food_Special_Duration, String food_Specification, String food_Type, String food_Weight) {
+    public Food(double food_Amount_Off,String image, String food_Brand_Name, String food_ID, double food_Normal_Price, double food_Reduced_Price, String food_Shop_ID, String food_Special_Duration, String food_Specification, String food_Type, String food_Weight) {
         this.food_Amount_Off = food_Amount_Off;
         this.food_Brand_Name = food_Brand_Name;
         this.food_ID = food_ID;
@@ -47,11 +47,11 @@ public class Food implements Serializable{
     public Food() {
     }
 
-    public int getFood_Amount_Off() {
+    public double getFood_Amount_Off() {
         return food_Amount_Off;
     }
 
-    public void setFood_Amount_Off(int food_Amount_Off) {
+    public void setFood_Amount_Off(double food_Amount_Off) {
         this.food_Amount_Off = food_Amount_Off;
     }
 

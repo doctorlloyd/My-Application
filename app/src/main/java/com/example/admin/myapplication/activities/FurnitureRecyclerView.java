@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.admin.myapplication.pojos.Furniture;
+import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -24,15 +25,16 @@ import com.squareup.picasso.Picasso;
 public class FurnitureRecyclerView extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private RecyclerView recyclerView;
-    private String shop_name;
+    private Shop shop;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.global_list);
 
+        shop = (Shop)getIntent().getSerializableExtra("model");
+
         String _key = getIntent().getStringExtra("_key");
-        String _category = getIntent().getStringExtra("_category");
-        shop_name = getIntent().getStringExtra("shop_name");
+        String _category = shop.getShop_Category();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Shop").child(_key).child(_category);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -53,20 +55,19 @@ public class FurnitureRecyclerView extends AppCompatActivity {
 
         ) {
             @Override
-            protected void populateViewHolder(FurnitureViewHolder viewHolder, final Furniture model, int position) {
+            protected void populateViewHolder(FurnitureViewHolder viewHolder, final Furniture item, int position) {
                 final String _key = getRef(position).getKey();
-                viewHolder.setName(model.getFurniture_Brand_Name());
-                viewHolder.setDescription(model.getFurniture_Specification());
-                viewHolder.setImg(getApplicationContext(), model.getImage());
+                viewHolder.setName(item.getFurniture_Brand_Name());
+                viewHolder.setDescription(item.getFurniture_Specification());
+                viewHolder.setImg(getApplicationContext(), item.getImage());
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(),Splash.class);
-                        intent.putExtra("model", model);
-                        intent.putExtra("_category","Furniture");
-                        intent.putExtra("shop_name",shop_name);
+                        intent.putExtra("item", item);
+                        intent.putExtra("shop",shop);
                         startActivity(intent);
                     }
                 });
