@@ -2,6 +2,7 @@ package com.example.admin.myapplication.activities;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +36,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.util.List;
 
-public class MapActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MapActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks{//, GoogleApiClient.OnConnectionFailedListener {
     String query;
     private GoogleMap googleMap_;
     private GoogleApiClient googleApiClient;
@@ -46,7 +48,8 @@ public class MapActivity extends AppCompatActivity implements LocationListener, 
         super.onCreate(savedInstanceState);
         if (googleServicesAvailable()) {
             setContentView(R.layout.map_activity);
-            query = getIntent().getStringExtra("information");
+//            query = getIntent().getStringExtra("information");
+            query = "protea glen ext3";
             Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show();
             initializeMapFragment();
             Toast.makeText(this, query, Toast.LENGTH_LONG).show();
@@ -67,25 +70,25 @@ public class MapActivity extends AppCompatActivity implements LocationListener, 
         try {
             geographicalLocation(query, googleMap);
             googleMap_ = googleMap;
-            googleApiClient = new GoogleApiClient.Builder(this)
-                    .addApi(LocationServices.API)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .build();
-            googleApiClient.connect();
-//            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
-//                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                    // TODO: Consider calling
-//                    //    ActivityCompat#requestPermissions
-//                    // here to request the missing permissions, and then overriding
-//                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                    //                                          int[] grantResults)
-//                    // to handle the case where the user grants the permission. See the documentation
-//                    // for ActivityCompat#requestPermissions for more details.
-//                    return;
-//                }
-//            }
-//            googleMap.setMyLocationEnabled(true);
+//            googleApiClient = new GoogleApiClient.Builder(this)
+//                    .addApi(LocationServices.API)
+//                    .addConnectionCallbacks(this)
+//                    .addOnConnectionFailedListener(this)
+//                    .build();
+//            googleApiClient.connect();
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+            }
+            googleMap.setMyLocationEnabled(true);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -173,11 +176,11 @@ public class MapActivity extends AppCompatActivity implements LocationListener, 
     public void onConnectionSuspended(int i) {
 
     }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
+//
+//    @Override
+//    public void onConnectionFailed(ConnectionResult connectionResult) {
+//
+//    }
 
     @Override
     public void onLocationChanged(Location location) {
@@ -188,5 +191,12 @@ public class MapActivity extends AppCompatActivity implements LocationListener, 
             CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll,ZOOM);
             googleMap_.animateCamera(update);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(),ShopsRecyclerView.class));
+        finish();
     }
 }
