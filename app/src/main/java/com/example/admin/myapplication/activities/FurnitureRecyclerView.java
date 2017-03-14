@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -84,7 +83,7 @@ public class FurnitureRecyclerView extends AppCompatActivity implements Navigati
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(),Splash.class);
+                        Intent intent = new Intent(getApplicationContext(),ItemDisplay.class);
                         intent.putExtra("item", item);
                         intent.putExtra("shop",shop);
                         startActivity(intent);

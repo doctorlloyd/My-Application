@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(user != null){
                     //<---Signed in--->
                     System.out.println("==============="+"this is what hapens when you smoke less than the required quantity"+"===========");
-                    startActivity(new Intent(LoginActivity.this, HomeScreen.class));
+                    startActivity(new Intent(LoginActivity.this, SplashScreen.class));
 //                    Toast.makeText(MainActivity.this,"You're now signed in.Welcome to Pharmarcee!",Toast.LENGTH_SHORT).show();
 
 

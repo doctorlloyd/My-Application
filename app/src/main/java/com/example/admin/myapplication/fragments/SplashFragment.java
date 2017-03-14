@@ -14,7 +14,7 @@ import com.example.doc.final_project.R;
 public class SplashFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.splash_fragment,container,false);
+        View rootView = inflater.inflate(R.layout.splash_screen,container,false);
 
         return rootView;
     }

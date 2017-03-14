@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.admin.myapplication.activities.HomeScreen;
 import com.example.admin.myapplication.activities.Item_Registration;
 import com.example.doc.final_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;

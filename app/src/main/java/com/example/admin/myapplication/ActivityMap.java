@@ -1,18 +1,20 @@
-package com.example.admin.myapplication.activities;
+package com.example.admin.myapplication;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+
+import com.example.admin.myapplication.activities.GetNearbyPlacesData;
 import com.example.doc.final_project.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -31,10 +33,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
+public class ActivityMap extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
+
     private GoogleMap mMap;
     double latitude;
     double longitude;
@@ -44,11 +47,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map_activity);
-
+        setContentView(R.layout.activity_map);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
@@ -63,9 +67,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapFragment);
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
     }
 
@@ -83,10 +86,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -101,26 +112,25 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
         }
 
-        Button btnShoppingC = (Button) findViewById(R.id.btnSC);
-        btnShoppingC.setOnClickListener(new View.OnClickListener() {
-            String Shopping_Centers = "library";
+        Button btnLibrary = (Button) findViewById(R.id.btnShoppingCentres);
+        btnLibrary.setOnClickListener(new View.OnClickListener() {
+            String ShoppingCentres = "library";
 
             @Override
             public void onClick(View v) {
                 Log.d("onClick", "Button is Clicked");
                 mMap.clear();
-                String url = getUrl(latitude, longitude, Shopping_Centers);
+                String url = getUrl(latitude, longitude, ShoppingCentres);
                 Object[] DataTransfer = new Object[2];
                 DataTransfer[0] = mMap;
                 DataTransfer[1] = url;
                 Log.d("onClick", url);
                 GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
                 getNearbyPlacesData.execute(DataTransfer);
-                Toast.makeText(getApplicationContext(), "Nearby Libraries", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Nearby ShoppingCentres", Toast.LENGTH_LONG).show();
             }
         });
     }
-
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -130,7 +140,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .build();
         mGoogleApiClient.connect();
     }
-
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -143,8 +152,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 == PackageManager.PERMISSION_GRANTED) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
-    }
 
+    }
 
     private String getUrl(double latitude, double longitude, String nearbyPlace) {
 
@@ -153,11 +162,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
         googlePlacesUrl.append("&type=" + nearbyPlace);
         googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyDnOUV4odSrX2N2KFdbZzcT0lkL56sHIC4");
+        googlePlacesUrl.append("&key=" + "AIzaSyATuUiZUkEc_UgHuqsBJa1oqaODI-3mLs0");
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
     }
-
 
     @Override
     public void onConnectionSuspended(int i) {
@@ -203,7 +211,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
@@ -242,7 +249,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -270,8 +276,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
                 return;
             }
+
             // other 'case' lines to check for other permissions this app might request.
             // You can add here other case statements according to your requirement.
         }
     }
+
+
 }

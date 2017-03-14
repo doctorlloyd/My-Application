@@ -3,7 +3,6 @@ package com.example.admin.myapplication.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,8 +24,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
-
-import java.io.Serializable;
 
 public class ClothingRecyclerView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DatabaseReference mDatabaseReference;
@@ -84,7 +81,7 @@ public class ClothingRecyclerView extends AppCompatActivity implements Navigatio
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(),Splash.class);
+                        Intent intent = new Intent(getApplicationContext(),ItemDisplay.class);
                         intent.putExtra("item", item);
                         intent.putExtra("shop",shop);
                         startActivity(intent);

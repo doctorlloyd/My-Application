@@ -8,13 +8,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.admin.myapplication.activities.Splash">
-    <Button
-        android:text="NEXT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnNext"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+    tools:context="com.example.admin.myapplication.activities.ItemDisplay">
 
 </RelativeLayout>
