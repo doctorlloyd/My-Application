@@ -1,4 +1,4 @@
-package com.example.admin.myapplication;
+package com.example.admin.myapplication.activities;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -281,6 +281,4 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback,
             // You can add here other case statements according to your requirement.
         }
     }
-
-
 }
