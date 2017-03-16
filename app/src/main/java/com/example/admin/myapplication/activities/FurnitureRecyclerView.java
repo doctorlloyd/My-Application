@@ -104,23 +104,17 @@ public class FurnitureRecyclerView extends AppCompatActivity implements Navigati
         int id = item.getItemId();
 
         if (id == R.id.nav_refresh) {
-            startActivity(new Intent(getApplicationContext(),FurnitureRecyclerView.class));
+            startActivity(new Intent(getApplicationContext(),ShopsRecyclerView.class));
             finish();
         } else if (id == R.id.nav_shop_centre) {
             startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
-        } else if (id == R.id.nav_navigate) {
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "));
-//        startActivity(intent);
+        } else if (id == R.id.nav_about_us) {
 
-        } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_manage_settings) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

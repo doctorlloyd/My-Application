@@ -8,10 +8,9 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/my_toolbar"
-            style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            style="@style/Widget.Design.CollapsingToolbar"
             android:layout_width="match_parent"
             android:background="@color/colorPrimary"
-            android:subtitleTextColor="@color/tw__solid_white"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways">
 
@@ -21,7 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:elevation="16dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center">
 

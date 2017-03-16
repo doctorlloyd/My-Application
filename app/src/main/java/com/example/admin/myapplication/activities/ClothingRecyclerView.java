@@ -56,12 +56,6 @@ public class ClothingRecyclerView extends AppCompatActivity implements Navigatio
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         FirebaseRecyclerAdapter<Clothing, ClothingViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Clothing, ClothingViewHolder>(
                 Clothing.class,
@@ -101,23 +95,17 @@ public class ClothingRecyclerView extends AppCompatActivity implements Navigatio
         int id = item.getItemId();
 
         if (id == R.id.nav_refresh) {
-            startActivity(new Intent(getApplicationContext(),ClothingRecyclerView.class));
+            startActivity(new Intent(getApplicationContext(),ShopsRecyclerView.class));
             finish();
         } else if (id == R.id.nav_shop_centre) {
             startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
-        } else if (id == R.id.nav_navigate) {
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "));
-//        startActivity(intent);
+        } else if (id == R.id.nav_about_us) {
 
-        } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_manage_settings) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

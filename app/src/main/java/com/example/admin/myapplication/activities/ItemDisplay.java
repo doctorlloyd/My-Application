@@ -1,5 +1,6 @@
 package com.example.admin.myapplication.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -68,9 +69,7 @@ public class ItemDisplay extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),"Could not Load the Item...",Toast.LENGTH_LONG).show();
         }
-
     }
-
     private void initialization() {
         tvItemPrice = (TextView) findViewById(R.id.itemPrice);
         tvItemDiscount = (TextView) findViewById(R.id.itemPriceOff);
@@ -78,7 +77,30 @@ public class ItemDisplay extends AppCompatActivity {
         tvItemName = (TextView) findViewById(R.id.displayItemName);
         tvSpecification = (TextView) findViewById(R.id.displayItemSpecification);
         tvSpecialDuration = (TextView) findViewById(R.id.displaySpecialDuration);
-
         imgItemIcon = (ImageView) findViewById(R.id.displayItemIcon);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(shop.getShop_Category().equalsIgnoreCase("Clothing")){
+            Intent intent = new Intent(getApplicationContext(),ClothingRecyclerView.class);
+            intent.putExtra("_key",shop.getShop_ID());
+            intent.putExtra("model",shop);
+            startActivity(intent);
+            finish();
+        }else if(shop.getShop_Category().equalsIgnoreCase("Food")){
+            Intent intent = new Intent(getApplicationContext(),FoodRecyclerView.class);
+            intent.putExtra("_key",shop.getShop_ID());
+            intent.putExtra("model",shop);
+            startActivity(intent);
+            finish();
+        }else {
+            Intent intent = new Intent(getApplicationContext(),FurnitureRecyclerView.class);
+            intent.putExtra("_key",shop.getShop_ID());
+            intent.putExtra("model",shop);
+            startActivity(intent);
+            finish();
+        }
     }
 }

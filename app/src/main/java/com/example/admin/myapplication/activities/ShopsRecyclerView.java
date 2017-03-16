@@ -74,32 +74,33 @@ public class ShopsRecyclerView extends AppCompatActivity implements NavigationVi
                 mDatabaseReference
         ) {
             @Override
-            protected void populateViewHolder(ShopViewHolder viewHolder, final Shop model, int position) {
+            protected void populateViewHolder(ShopViewHolder viewHolder, final Shop model, final int position) {
                 viewHolder.setName(model.getShop_Name());
                 viewHolder.setLocation(model.getShop_location());
-
                 viewHolder.setImg(getApplicationContext(), model.getImage());
-                _key = getRef(position).getKey();
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(model.getShop_Category().equalsIgnoreCase("Clothing")){
-                            Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
+                            _key = getRef(position).getKey();
+                            Toast.makeText(getApplicationContext(), "Key: " + _key +" :"+model.getShop_Category(), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(),ClothingRecyclerView.class);
                             intent.putExtra("_key",_key);
                             intent.putExtra("model",model);
                             startActivity(intent);
                             finish();
                         }else if(model.getShop_Category().equalsIgnoreCase("Food")){
-                            Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
+                            _key = getRef(position).getKey();
+                            Toast.makeText(getApplicationContext(), "Key: " + _key+" :"+model.getShop_Category(), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(),FoodRecyclerView.class);
                             intent.putExtra("_key",_key);
                             intent.putExtra("model",model);
                             startActivity(intent);
                             finish();
                         }else {
-                            Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
+                            _key = getRef(position).getKey();
+                            Toast.makeText(getApplicationContext(), "Key: " + _key+" :"+model.getShop_Category(), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(),FurnitureRecyclerView.class);
                             intent.putExtra("_key",_key);
                             intent.putExtra("model",model);
@@ -217,8 +218,10 @@ public class ShopsRecyclerView extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.nav_shop_centre) {
             startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
-        } else if (id == R.id.nav_navigate) {
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "));
+        } else if (id == R.id.nav_about_us) {
+
+
+        } else if (id == R.id.nav_manage_settings) {
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

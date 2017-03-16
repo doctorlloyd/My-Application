@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.example.admin.myapplication.activities.ShopsRecyclerView;
 import com.example.admin.myapplication.pojos.Clothing;
 import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
@@ -32,7 +35,7 @@ public class ClothingRegistration extends Fragment {
 
     public static String TAG = ClothingRegistration.class.getSimpleName();
     private EditText etClothingID, etClothingSaleDuration, etClothingType, etClotheBrandName, etClotheSpecification, etClotheSize, etClotheNormalPrice, etClothePercentageOFF, etClotheReducedPrice;
-    private Button btn_add_clothe;
+    private Button btn_add_clothe,btn_logout;
     private FirebaseAuth user;
     private FirebaseUser fbuser;
     private Clothing clothing;
@@ -44,6 +47,9 @@ public class ClothingRegistration extends Fragment {
     private String image;
     private StorageReference mStorageReference;
 
+    // [START declare_auth_listener]
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    // [END declare_auth_listener]
     public ClothingRegistration() {
         // Required empty public constructor
     }
@@ -78,6 +84,15 @@ public class ClothingRegistration extends Fragment {
             @Override
             public void onClick(View view) {
                 addAnItem();
+                initializeToNull();
+                initialize();
+            }
+        });
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+                startActivity(new Intent(getActivity().getBaseContext(),ShopsRecyclerView.class));
             }
         });
         return rootView;
@@ -93,6 +108,7 @@ public class ClothingRegistration extends Fragment {
                     Uri downloadUri = taskSnapshot.getDownloadUrl();
                     image = downloadUri.toString();
                     databaseReference.addValueEventListener(eventListener);
+                    Toast.makeText(getActivity(),"Item was successful!..",Toast.LENGTH_LONG).show();
                 }
             });
         }else {
@@ -167,6 +183,18 @@ public class ClothingRegistration extends Fragment {
         btn_add_clothe = (Button) view.findViewById(R.id.btnclothe_item_register);
         imageButton = (ImageButton) view.findViewById(R.id.imgbtn_clothing_item);
     }
+    public void initializeToNull()
+    {
+        etClothePercentageOFF.setText("");
+        etClotheBrandName.setText("");
+        etClothingID.setText("");
+        etClotheNormalPrice.setText("");
+        etClotheReducedPrice.setText("");
+        etClotheSize.setText("");
+        etClothingType.setText("");
+        etClotheSpecification.setText("");
+        etClothingSaleDuration.setText("");
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -175,5 +203,25 @@ public class ClothingRegistration extends Fragment {
             imageUri = data.getData();
             imageButton.setImageURI(imageUri);
         }
+    }
+
+    // [START on_start_add_listener]
+    @Override
+    public void onStart() {
+        super.onStart();
+        user.addAuthStateListener(mAuthListener);
+    }
+    // [END on_start_add_listener]
+
+    // [START on_stop_remove_listener]
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            user.removeAuthStateListener(mAuthListener);
+        }
+    }
+    private void signOut() {
+        user.signOut();
     }
 }

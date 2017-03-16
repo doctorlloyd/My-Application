@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
 <LinearLayout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/colorBackground"
@@ -11,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.admin.myapplication.activities.SecondScreen">
+    tools:context="com.example.admin.myapplication.activities.ShopRegisterOrLogin">
 
     <ImageView
         android:id="@+id/logo"
@@ -65,4 +60,3 @@
         android:background="@drawable/my_buttons"
         android:text="sign in" />
 </LinearLayout>
-    </ScrollView>

@@ -29,10 +29,11 @@ import com.squareup.picasso.Picasso;
  * Created by Admin on 2017/03/09.
  */
 
-public class FoodRecyclerView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class FoodRecyclerView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DatabaseReference mDatabaseReference;
     private RecyclerView recyclerView;
     private Shop shop;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,7 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        shop = (Shop)getIntent().getSerializableExtra("model");
+        shop = (Shop) getIntent().getSerializableExtra("model");
 
         String _key = getIntent().getStringExtra("_key");
         String _category = shop.getShop_Category();
@@ -59,7 +60,7 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        FirebaseRecyclerAdapter<Food, FoodViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Food,FoodViewHolder>(
+        FirebaseRecyclerAdapter<Food, FoodViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(
                 Food.class,
                 R.layout.item_raw_view,
                 FoodViewHolder.class,
@@ -73,14 +74,15 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
                 viewHolder.setDescription(item.getFood_Specification());
                 viewHolder.setImg(getApplicationContext(), item.getImage());
                 viewHolder.setPrice(String.valueOf(item.getFood_Reduced_Price()));
-
+                System.out.println("===========================:");
+                System.out.println("===========================:" + String.valueOf(item.getFood_Reduced_Price()));
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(),ItemDisplay.class);
+                        Intent intent = new Intent(getApplicationContext(), ItemDisplay.class);
                         intent.putExtra("item", item);
-                        intent.putExtra("shop",shop);
+                        intent.putExtra("shop", shop);
                         startActivity(intent);
                     }
                 });
@@ -91,34 +93,28 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item){
+    public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_refresh) {
-            startActivity(new Intent(getApplicationContext(),FoodRecyclerView.class));
+            startActivity(new Intent(getApplicationContext(),ShopsRecyclerView.class));
             finish();
         } else if (id == R.id.nav_shop_centre) {
             startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
-        } else if (id == R.id.nav_navigate) {
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "));
-//        startActivity(intent);
+        } else if (id == R.id.nav_about_us) {
 
-        } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_manage_settings) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public static class FoodViewHolder extends RecyclerView.ViewHolder{
+    public static class FoodViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
 
@@ -129,37 +125,39 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
 
         }
 
-        public void setName(String name){
+        public void setName(String name) {
 
             TextView tvName = (TextView) mView.findViewById(R.id.itemName);
             tvName.setText(name);
 
         }
 
-        public void setDescription(String description){
+        public void setDescription(String description) {
 
             TextView tvLocation = (TextView) mView.findViewById(R.id.itemSpecification);
             tvLocation.setText(description);
 
         }
-        public void setPrice(String description){
+
+        public void setPrice(String description) {
 
             TextView tvPrice = (TextView) mView.findViewById(R.id.itemPrice);
-            tvPrice.setText("R "+description);
+            tvPrice.setText("R " + description);
 
         }
 
-        public void setImg(Context c, String img){
+        public void setImg(Context c, String img) {
 
             ImageView imageView = (ImageView) mView.findViewById(R.id.itemIcon);
             Picasso.with(c).load(img).into(imageView);
 
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(),ShopsRecyclerView.class));
+        startActivity(new Intent(getApplicationContext(), ShopsRecyclerView.class));
         finish();
     }
 }

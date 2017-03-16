@@ -114,7 +114,7 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback,
 
         Button btnLibrary = (Button) findViewById(R.id.btnShoppingCentres);
         btnLibrary.setOnClickListener(new View.OnClickListener() {
-            String ShoppingCentres = "library";
+            String ShoppingCentres = "shopping_mall";
 
             @Override
             public void onClick(View v) {

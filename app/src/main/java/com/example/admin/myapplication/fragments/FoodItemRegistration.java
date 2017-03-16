@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import com.example.admin.myapplication.activities.ShopsRecyclerView;
 import com.example.admin.myapplication.pojos.Food;
 import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
@@ -36,9 +38,9 @@ public class FoodItemRegistration extends Fragment {
 
     public static String TAG =  FoodItemRegistration.class.getSimpleName();
     private EditText etFoodID,etFoodSpecialDuration,etFoodType,etFoodBrandName,etFoodSpecification,etFoodWeight,etFoodNormalPrice,etFoodAmountOFF,etFoodReducedPrice;
-    private Button btn_add_food;
-    private FirebaseAuth user;
-    private FirebaseUser fbuser;
+    private Button btn_add_food,btn_logout;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private String uid = null;
     private static final int GALLERY_INTENT = 1;
     private ImageButton imageButton;
@@ -48,9 +50,6 @@ public class FoodItemRegistration extends Fragment {
     Uri imageUri;
 
     private StorageReference mStorageReference;
-    // [START declare_auth]
-    private FirebaseAuth mAuth;
-    // [END declare_auth]
 
     // [START declare_auth_listener]
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -71,8 +70,8 @@ public class FoodItemRegistration extends Fragment {
         initialize();
         mStorageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Shop");
-        user = FirebaseAuth.getInstance();
-        fbuser = user.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         //
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +87,15 @@ public class FoodItemRegistration extends Fragment {
             @Override
             public void onClick(View view) {
                 addAnItem();
+                initializeToNull();
+                initialize();
+            }
+        });
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+                startActivity(new Intent(getActivity().getBaseContext(),ShopsRecyclerView.class));
             }
         });
         return rootView;
@@ -104,7 +112,20 @@ public class FoodItemRegistration extends Fragment {
         etFoodType= (EditText) view.findViewById(R.id.etFoodType);
         etFoodSpecification= (EditText) view.findViewById(R.id.etFoodSpecification);
         btn_add_food = (Button) view.findViewById(R.id.btnfood_item_register);
+        btn_logout = (Button) view.findViewById(R.id.btnfood_logout);
         imageButton = (ImageButton) view.findViewById(R.id.imgbtn_food_item);
+    }
+    public void initializeToNull()
+    {
+        etFoodAmountOFF.setText("");
+        etFoodBrandName.setText("");
+        etFoodID.setText("");
+        etFoodNormalPrice.setText("");
+        etFoodReducedPrice.setText("");
+        etFoodSpecialDuration.setText("");
+        etFoodWeight.setText("");
+        etFoodType.setText("");
+        etFoodSpecification.setText("");
     }
     //[CREATING AN OBJECT OF A CLOTHE]
     public void addAnItem() {
@@ -130,7 +151,7 @@ public class FoodItemRegistration extends Fragment {
             for (DataSnapshot ds: dataSnapshot.getChildren()){
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "+ ds.getKey());
                 Shop shop = ds.getValue(Shop.class);
-                if(shop.getEmail().equals(fbuser.getEmail()))
+                if(shop.getEmail().equals(user.getEmail()))
                 {
                     String food_ID = etFoodID.getText().toString();
                     String food_type = etFoodType.getText().toString();
@@ -184,5 +205,25 @@ public class FoodItemRegistration extends Fragment {
             imageUri = data.getData();
             imageButton.setImageURI(imageUri);
         }
+    }
+
+    // [START on_start_add_listener]
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    // [END on_start_add_listener]
+
+    // [START on_stop_remove_listener]
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    private void signOut() {
+        mAuth.signOut();
     }
 }

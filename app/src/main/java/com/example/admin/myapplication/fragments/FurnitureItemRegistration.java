@@ -4,14 +4,18 @@ package com.example.admin.myapplication.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import com.example.admin.myapplication.activities.ShopsRecyclerView;
 import com.example.admin.myapplication.pojos.Furniture;
 import com.example.admin.myapplication.pojos.Shop;
 import com.example.doc.final_project.R;
@@ -37,9 +41,9 @@ public class FurnitureItemRegistration extends Fragment {
 
     public static String TAG = FurnitureItemRegistration.class.getSimpleName();
     private EditText etFurnitureID, etFurnitureSaleDuration, etFurnitureType, etFurnitureBrandName, etFurnitureSpecification, etFurnitureSize, etFurnitureNormalPrice, etFurniturePercentageOFF, etFurnitureReducedPrice, etFurnitureColor;
-    private Button btn_add_furniture;
-    private FirebaseUser fbuser;
-    private FirebaseAuth user;
+    private Button btn_add_furniture,btn_logout;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private String uid = null;
     private static final int GALLERY_INTENT = 1;
     private ImageButton imageButton;
@@ -49,9 +53,6 @@ public class FurnitureItemRegistration extends Fragment {
     private String image;
 
     private StorageReference mStorageReference;
-    // [START declare_auth]
-    private FirebaseAuth mAuth;
-    // [END declare_auth]
 
     // [START declare_auth_listener]
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -72,9 +73,24 @@ public class FurnitureItemRegistration extends Fragment {
 
         mStorageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Shop");
-        user = FirebaseAuth.getInstance();
-        fbuser = user.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+// [START auth_state_listener]
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
+        // [END auth_state_listener]
         //
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +106,15 @@ public class FurnitureItemRegistration extends Fragment {
             @Override
             public void onClick(View view) {
                 addAnItem();
+                initializeToNull();
+                initialize();
+            }
+        });
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+                startActivity(new Intent(getActivity().getBaseContext(),ShopsRecyclerView.class));
             }
         });
         return rootView;
@@ -107,9 +132,23 @@ public class FurnitureItemRegistration extends Fragment {
         etFurnitureSpecification = (EditText) view.findViewById(R.id.etFurnitureSpecification);
         etFurnitureColor = (EditText) view.findViewById(R.id.etFurnitureColor);
         btn_add_furniture = (Button) view.findViewById(R.id.furniture_item_register);
+        btn_add_furniture = (Button) view.findViewById(R.id.furniture_item_register);
+        btn_logout = (Button) view.findViewById(R.id.btnfurniture_logout);
         imageButton = (ImageButton) view.findViewById(R.id.imgbtn_furniture_item);
     }
-
+    public void initializeToNull()
+    {
+        etFurniturePercentageOFF.setText("");
+        etFurnitureBrandName.setText("");
+        etFurnitureID.setText("");
+        etFurnitureNormalPrice.setText("");
+        etFurnitureReducedPrice.setText("");
+        etFurnitureSize.setText("");
+        etFurnitureType.setText("");
+        etFurnitureSaleDuration.setText("");
+        etFurnitureSpecification.setText("");
+        etFurnitureColor.setText("");
+    }
     //[CREATING AN OBJECT OF A CLOTHE]
     public void addAnItem() {
         if (validateNullInput()) {
@@ -136,7 +175,7 @@ public class FurnitureItemRegistration extends Fragment {
             for (DataSnapshot ds: dataSnapshot.getChildren()){
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "+ ds.getKey());
                 Shop shop = ds.getValue(Shop.class);
-                if(shop.getEmail().equals(fbuser.getEmail()))
+                if(shop.getEmail().equals(user.getEmail()))
                 {
                     String furniture_ID = etFurnitureID.getText().toString();
                     String furniture_type = etFurnitureType.getText().toString();
@@ -199,4 +238,24 @@ public class FurnitureItemRegistration extends Fragment {
         }
 
     }
+    // [START on_start_add_listener]
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    // [END on_start_add_listener]
+
+    // [START on_stop_remove_listener]
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    private void signOut() {
+        mAuth.signOut();
+    }
+
 }

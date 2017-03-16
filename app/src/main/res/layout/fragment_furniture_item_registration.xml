@@ -177,7 +177,7 @@
                 android:background="@drawable/edit_text"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Special Duration (start and end date)"
+                android:hint="Special Duration"
                 android:inputType="textAutoCorrect" />
         </android.support.design.widget.TextInputLayout>
 
@@ -216,17 +216,31 @@
                 android:text="Upload Shop Logo"
                 android:textColor="#000000" />
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/furniture_item_register"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="32dp"
-            android:background="@drawable/my_buttons"
-            android:elevation="12dp"
-            android:text="Add Item"
-            android:textColor="@android:color/white" />
-
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/furniture_item_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="32dp"
+                android:background="@drawable/my_buttons"
+                android:elevation="12dp"
+                android:text="Add Item"
+                android:textColor="@android:color/white" />
+            <Button
+                android:id="@+id/btnfurniture_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="32dp"
+                android:background="@drawable/my_buttons"
+                android:elevation="12dp"
+                android:text="Logout"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
