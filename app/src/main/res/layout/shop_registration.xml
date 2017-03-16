@@ -6,7 +6,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0097A7"
+        android:background="@color/colorBackground"
         android:orientation="vertical">
 
         <ImageView
@@ -15,10 +15,6 @@
             android:layout_height="@dimen/app_bar_height"
             android:layout_gravity="center"
             android:src="@drawable/smarthealth2" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/etShopName"
@@ -34,12 +30,6 @@
                 android:hint="Shop Name"
                 android:inputType="textPersonName" />
 
-        </android.support.design.widget.TextInputLayout>
-
-        <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-
         <EditText
             android:id="@+id/etShopEmail"
             android:layout_width="match_parent"
@@ -53,11 +43,6 @@
             android:gravity="center"
             android:hint="Shop Email"
             android:inputType="textEmailAddress" />
-        <!--</android.support.design.widget.TextInputLayout>-->
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/etShopAddress"
@@ -72,11 +57,6 @@
                 android:gravity="center"
                 android:hint="Address or Location"
                 android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/etShopContact"
@@ -91,11 +71,6 @@
                 android:gravity="center"
                 android:hint="Shop Contact"
                 android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
-
-        <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
 
         <EditText
             android:id="@+id/etShopPassword"
@@ -110,11 +85,6 @@
             android:gravity="center"
             android:hint="Password"
             android:inputType="textPassword" />
-        <!--</android.support.design.widget.TextInputLayout>-->
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/etShopConfirmPassword"
@@ -129,12 +99,6 @@
                 android:gravity="center"
                 android:hint="Confirm Password"
                 android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,10 +111,8 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="8dp" />
-        </android.support.design.widget.TextInputLayout>
-        <RelativeLayout
+                android:layout_marginRight="24dp" />
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageButton
@@ -164,47 +126,35 @@
                 android:gravity="center"
                 android:textColor="#000000"
                 android:text="Upload Shop logo" />
-        </RelativeLayout>
-
+        </FrameLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
             android:orientation="horizontal">
-
-            <LinearLayout
+            <Button
+                android:id="@+id/shopSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/shopSignUp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="32dp"
-                    android:background="@drawable/my_buttons"
-                    android:elevation="12dp"
-                    android:text="  sign up  "
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-
-            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/sign_up_edit_style"
+                android:elevation="12dp"
+                android:layout_marginRight="12dp"
+                android:text="  sign up  "
+                android:textColor="#000000" />
+            <Button
+                android:id="@+id/shopSendVerification"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/shopSendVerification"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="32dp"
-                    android:background="@drawable/my_buttons"
-                    android:elevation="12dp"
-                    android:text="sign Out"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/sign_up_edit_style"
+                android:elevation="12dp"
+                android:layout_marginLeft="12dp"
+                android:text="Cancel"
+                android:textColor="#F44336"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

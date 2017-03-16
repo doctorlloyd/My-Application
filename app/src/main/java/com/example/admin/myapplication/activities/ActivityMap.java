@@ -1,6 +1,7 @@
 package com.example.admin.myapplication.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -9,12 +10,11 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-
-import com.example.admin.myapplication.activities.GetNearbyPlacesData;
 import com.example.doc.final_project.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -276,9 +276,44 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback,
                 }
                 return;
             }
-
             // other 'case' lines to check for other permissions this app might request.
             // You can add here other case statements according to your requirement.
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(),ShopsRecyclerView.class));
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.mapTypeNormal) {
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            return true;
+        }else if(id == R.id.mapTypeSatellite)
+        {
+            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            return true;
+        }else if(id == R.id.mapTypeTerrain)
+        {
+            mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+            return true;
+        }else if(id == R.id.mapTypeHybrid)
+        {
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

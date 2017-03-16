@@ -69,7 +69,7 @@ public class ShopsRecyclerView extends AppCompatActivity implements NavigationVi
         super.onStart();
         FirebaseRecyclerAdapter<Shop, ShopViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Shop, ShopViewHolder>(
                 Shop.class,
-                R.layout.view_row,
+                R.layout.custom_shop_view,
                 ShopViewHolder.class,
                 mDatabaseReference
         ) {
@@ -77,6 +77,7 @@ public class ShopsRecyclerView extends AppCompatActivity implements NavigationVi
             protected void populateViewHolder(ShopViewHolder viewHolder, final Shop model, int position) {
                 viewHolder.setName(model.getShop_Name());
                 viewHolder.setLocation(model.getShop_location());
+
                 viewHolder.setImg(getApplicationContext(), model.getImage());
                 _key = getRef(position).getKey();
 
@@ -156,21 +157,21 @@ public class ShopsRecyclerView extends AppCompatActivity implements NavigationVi
 
         public void setName(String name){
 
-            TextView tvName = (TextView) mView.findViewById(R.id.tv_View_Name);
+            TextView tvName = (TextView) mView.findViewById(R.id.tv_ShopName);
             tvName.setText(name);
 
         }
 
         public void setLocation(String location){
 
-            TextView tvLocation = (TextView) mView.findViewById(R.id.tv_view_Location);
+            TextView tvLocation = (TextView) mView.findViewById(R.id.tv_Location);
             tvLocation.setText(location);
 
         }
 
         public void setImg(Context c, String img){
 
-            ImageView imageView = (ImageView) mView.findViewById(R.id.our_image);
+            ImageView imageView = (ImageView) mView.findViewById(R.id.imageview_Shop);
             Picasso.with(c).load(img).into(imageView);
 
         }
@@ -195,13 +196,10 @@ public class ShopsRecyclerView extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(getApplicationContext(),ShopRegisterOrLogin.class));
+            finish();
             return true;
         }
 
@@ -217,20 +215,12 @@ public class ShopsRecyclerView extends AppCompatActivity implements NavigationVi
             startActivity(new Intent(getApplicationContext(),ShopsRecyclerView.class));
             finish();
         } else if (id == R.id.nav_shop_centre) {
-            startActivity(new Intent(getApplicationContext(),MapActivity.class));
+            startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
         } else if (id == R.id.nav_navigate) {
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "));
-//        startActivity(intent);
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

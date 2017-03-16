@@ -34,7 +34,7 @@ public class LoginFragment extends Fragment{
     private FirebaseAuth mAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.login_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.login_fragment, container, false);
         etEmail = (EditText) rootView.findViewById(R.id.etLogin_Email);
         etPassword = (EditText) rootView.findViewById(R.id.etLogin_Password);
         btnLogin = (Button) rootView.findViewById(R.id.login_Button);

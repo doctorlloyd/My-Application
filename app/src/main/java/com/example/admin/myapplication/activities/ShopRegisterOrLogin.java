@@ -1,5 +1,6 @@
 package com.example.admin.myapplication.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -27,5 +28,12 @@ public class ShopRegisterOrLogin extends AppCompatActivity {
         tabLayout.setupWithViewPager(pager);
         pager.setCurrentItem(0);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(),ShopsRecyclerView.class));
+        finish();
     }
 }

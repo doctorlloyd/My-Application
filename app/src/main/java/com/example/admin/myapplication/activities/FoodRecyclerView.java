@@ -72,6 +72,7 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
                 viewHolder.setName(item.getFood_Brand_Name());
                 viewHolder.setDescription(item.getFood_Specification());
                 viewHolder.setImg(getApplicationContext(), item.getImage());
+                viewHolder.setPrice(String.valueOf(item.getFood_Reduced_Price()));
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -83,7 +84,6 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
                         startActivity(intent);
                     }
                 });
-
             }
         };
 
@@ -91,7 +91,7 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item){
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -99,7 +99,7 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
             startActivity(new Intent(getApplicationContext(),FoodRecyclerView.class));
             finish();
         } else if (id == R.id.nav_shop_centre) {
-            startActivity(new Intent(getApplicationContext(),MapActivity.class));
+            startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
         } else if (id == R.id.nav_navigate) {
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "));
@@ -117,41 +117,6 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        FirebaseRecyclerAdapter<Food, FoodViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Food,FoodViewHolder>(
-//                Food.class,
-//                R.layout.item_raw_view,
-//                FoodViewHolder.class,
-//                mDatabaseReference
-//
-//        ) {
-//            @Override
-//            protected void populateViewHolder(FoodViewHolder viewHolder, final Food item, int position) {
-//                final String _key = getRef(position).getKey();
-//                viewHolder.setName(item.getFood_Brand_Name());
-//                viewHolder.setDescription(item.getFood_Specification());
-//                viewHolder.setImg(getApplicationContext(), item.getImage());
-//
-//                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Toast.makeText(getApplicationContext(), "Key: " + _key, Toast.LENGTH_LONG).show();
-//                        Intent intent = new Intent(getApplicationContext(),ItemDisplay.class);
-//                        intent.putExtra("item", item);
-//                        intent.putExtra("shop",shop);
-//                        startActivity(intent);
-//                    }
-//                });
-//
-//            }
-//        };
-//
-//        recyclerView.setAdapter(firebaseRecyclerAdapter);
-//
-//    }
 
     public static class FoodViewHolder extends RecyclerView.ViewHolder{
 
@@ -175,6 +140,12 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
 
             TextView tvLocation = (TextView) mView.findViewById(R.id.itemSpecification);
             tvLocation.setText(description);
+
+        }
+        public void setPrice(String description){
+
+            TextView tvPrice = (TextView) mView.findViewById(R.id.itemPrice);
+            tvPrice.setText("R "+description);
 
         }
 

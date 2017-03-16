@@ -24,12 +24,12 @@ public class ItemDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailed_item_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(toolbar);
         initialization();
 
         try {
             shop = (Shop) getIntent().getSerializableExtra("shop");
-
+            toolbar.setTitle(shop.getShop_Name());
+            setSupportActionBar(toolbar);
             String _category = shop.getShop_Category();
             if (_category.equalsIgnoreCase("Food")) {
                 Food food = (Food) getIntent().getSerializableExtra("item");
@@ -41,7 +41,7 @@ public class ItemDisplay extends AppCompatActivity {
                 tvSpecification.setText(food.getFood_Specification());
                 tvSpecialDuration.setText("Special duration "+food.getFood_Special_Duration());
                 Picasso.with(this).load(food.getImage()).into(imgItemIcon);
-                Picasso.with(this).load(shop.getImage()).into(imgShopLogo);
+//                Picasso.with(this).load(shop.getImage()).into(imgShopLogo);
 
             } else if (_category.equalsIgnoreCase("Clothing")) {
                 Clothing clothing = (Clothing) getIntent().getSerializableExtra("item");
@@ -53,7 +53,7 @@ public class ItemDisplay extends AppCompatActivity {
                 tvSpecification.setText(clothing.getClothing_Specification());
                 tvSpecialDuration.setText("Sale duration "+clothing.getClothing_Duration());
                 Picasso.with(this).load(clothing.getImage()).into(imgItemIcon);
-                Picasso.with(this).load(shop.getImage()).into(imgShopLogo);
+//                Picasso.with(this).load(shop.getImage()).into(imgShopLogo);
             } else {
                 Furniture furniture = (Furniture) getIntent().getSerializableExtra("item");
                 tvItemPrice.setText("Now R "+furniture.getFurniture_Reduced_Price()+"\n Was R "+furniture.getFurniture_Normal_Price());
@@ -63,7 +63,7 @@ public class ItemDisplay extends AppCompatActivity {
                 tvSpecification.setText(furniture.getFurniture_Specification());
                 tvSpecialDuration.setText("Sale duration "+furniture.getFurniture_Special_Duration());
                 Picasso.with(this).load(furniture.getImage()).into(imgItemIcon);
-                Picasso.with(this).load(shop.getImage()).into(imgShopLogo);
+//                Picasso.with(this).load(shop.getImage()).into(imgShopLogo);
             }
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),"Could not Load the Item...",Toast.LENGTH_LONG).show();
@@ -79,7 +79,6 @@ public class ItemDisplay extends AppCompatActivity {
         tvSpecification = (TextView) findViewById(R.id.displayItemSpecification);
         tvSpecialDuration = (TextView) findViewById(R.id.displaySpecialDuration);
 
-        imgShopLogo = (ImageView) findViewById(R.id.displayItemIcon);
-        imgItemIcon = (ImageView) findViewById(R.id.displayShopLogo);
+        imgItemIcon = (ImageView) findViewById(R.id.displayItemIcon);
     }
 }

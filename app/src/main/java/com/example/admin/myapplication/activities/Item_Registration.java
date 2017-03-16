@@ -1,12 +1,10 @@
 package com.example.admin.myapplication.activities;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-
 import com.example.admin.myapplication.fragments.ClothingRegistration;
 import com.example.admin.myapplication.fragments.FoodItemRegistration;
 import com.example.admin.myapplication.fragments.FurnitureItemRegistration;
@@ -30,7 +28,7 @@ public class Item_Registration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item__registration);
+        setContentView(R.layout.item_registration);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Shop");
         user = FirebaseAuth.getInstance();
@@ -82,11 +80,10 @@ public class Item_Registration extends AppCompatActivity {
             }
         });
     }
-
     @Override
     public void onBackPressed() {
-
         super.onBackPressed();
+
     }
 
 }

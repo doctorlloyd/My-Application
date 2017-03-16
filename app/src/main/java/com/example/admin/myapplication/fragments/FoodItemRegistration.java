@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +67,7 @@ public class FoodItemRegistration extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.food_item_registration,container,false);
         view = rootView;
+
         initialize();
         mStorageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Shop");

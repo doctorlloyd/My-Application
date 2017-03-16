@@ -160,7 +160,6 @@ public class ShopRegistration extends Fragment{
                             uid = user.getUid();
                             databaseReference = FirebaseDatabase.getInstance().getReference("Shop");
 
-
                             StorageReference filePath = mStorageReference.child("my_image").child(imageUri.getLastPathSegment());
                             filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -187,14 +186,11 @@ public class ShopRegistration extends Fragment{
                                     }
                                 }
                             });
-
                         }
-
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful())
-
                         {
                             Toast.makeText(getActivity(), R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
@@ -223,17 +219,23 @@ public class ShopRegistration extends Fragment{
         }
 
         String password = etPassword.getText().toString();
-        if (TextUtils.isEmpty(password) || TextUtils.isEmpty(etConfirmPassword.getText().toString())) {
+        if (TextUtils.isEmpty(password)) {
             etPassword.setError("Required.");
             valid = false;
         } else {
             etPassword.setError(null);
         }
+        if(TextUtils.isEmpty(etConfirmPassword.getText().toString()) || !etPassword.getText().toString().equals(etConfirmPassword.getText().toString()))
+        {
+            etConfirmPassword.setError("Password must match.");
+            valid = false;
+        }else {
+            etConfirmPassword.setError(null);
+        }
         return valid;
     }
 
     private void initializeViews() {
-
         etAddress = (EditText) view.findViewById(R.id.etShopAddress);
         etContact = (EditText) view.findViewById(R.id.etShopContact);
         etEmail = (EditText) view.findViewById(R.id.etShopEmail);
@@ -249,7 +251,6 @@ public class ShopRegistration extends Fragment{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
 
             imageUri = data.getData();

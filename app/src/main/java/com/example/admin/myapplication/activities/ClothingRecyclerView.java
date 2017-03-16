@@ -76,6 +76,7 @@ public class ClothingRecyclerView extends AppCompatActivity implements Navigatio
                 viewHolder.setName(item.getClothing_Brand_Name());
                 viewHolder.setDescription(item.getClothing_Specification());
                 viewHolder.setImg(getApplicationContext(), item.getImage());
+                viewHolder.setPrice(String.valueOf(item.getClothing_Reduced_Price()));
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -103,7 +104,7 @@ public class ClothingRecyclerView extends AppCompatActivity implements Navigatio
             startActivity(new Intent(getApplicationContext(),ClothingRecyclerView.class));
             finish();
         } else if (id == R.id.nav_shop_centre) {
-            startActivity(new Intent(getApplicationContext(),MapActivity.class));
+            startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
         } else if (id == R.id.nav_navigate) {
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "));
@@ -151,6 +152,12 @@ public class ClothingRecyclerView extends AppCompatActivity implements Navigatio
 
             ImageView imageView = (ImageView) mView.findViewById(R.id.itemIcon);
             Picasso.with(c).load(img).into(imageView);
+
+        }
+
+        public void setPrice(String price) {
+            TextView tvPrice = (TextView) mView.findViewById(R.id.itemPrice);
+            tvPrice.setText("R "+price);
 
         }
     }

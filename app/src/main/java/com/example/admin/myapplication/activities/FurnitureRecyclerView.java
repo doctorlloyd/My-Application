@@ -78,6 +78,7 @@ public class FurnitureRecyclerView extends AppCompatActivity implements Navigati
                 viewHolder.setName(item.getFurniture_Brand_Name());
                 viewHolder.setDescription(item.getFurniture_Specification());
                 viewHolder.setImg(getApplicationContext(), item.getImage());
+                viewHolder.setPrice(String.valueOf(item.getFurniture_Reduced_Price()));
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -106,7 +107,7 @@ public class FurnitureRecyclerView extends AppCompatActivity implements Navigati
             startActivity(new Intent(getApplicationContext(),FurnitureRecyclerView.class));
             finish();
         } else if (id == R.id.nav_shop_centre) {
-            startActivity(new Intent(getApplicationContext(),MapActivity.class));
+            startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
         } else if (id == R.id.nav_navigate) {
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("google.navigation:q= "));
@@ -147,7 +148,10 @@ public class FurnitureRecyclerView extends AppCompatActivity implements Navigati
 
             TextView tvLocation = (TextView) mView.findViewById(R.id.itemSpecification);
             tvLocation.setText(description);
-
+        }
+        public void setPrice(String price) {
+            TextView tvPrice = (TextView) mView.findViewById(R.id.itemPrice);
+            tvPrice.setText("R "+price);
         }
 
         public void setImg(Context c, String img){

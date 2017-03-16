@@ -1,106 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#E8EAF6"
+    android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/my_toolbar"
-            style="@style/Widget.Design.CollapsingToolbar"
+            style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:subtitleTextColor="@color/tw__solid_white"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways">
 
         </android.support.v7.widget.Toolbar>
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:elevation="16dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center">
+
+            <ImageView
+                android:id="@+id/displayItemIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_marginEnd="4dp"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/smarthealth2"
+                />
 
             <TextView
                 android:id="@+id/itemPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/transperant_background"
-                android:gravity="end"
-                android:text="R 32.00" />
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="#C8E6C9"
+                android:layout_gravity="bottom|end"
+                android:textSize="36sp"
+                android:text="now 32.00" />
 
             <TextView
                 android:id="@+id/itemPriceOff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/transperant_background"
-                android:gravity="end"
-                android:text="R 32.00 OFF" />
+                android:layout_gravity="top|right"
+                android:layout_marginTop="4dp"
+                android:background="#FFCDD2"
+                android:text="save 32"/>
 
-            <ImageView
-                android:id="@+id/displayItemIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/images"
-                android:layout_alignParentTop="true"
-                android:layout_toStartOf="@+id/itemPriceOff" />
-        </RelativeLayout>
+
+
+
+        </FrameLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/displayShopName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:orientation="vertical">
+                android:text="ShopName"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/displayItemName"
+                android:layout_width="wrap_content"
+                android:layout_margin="12dp"
+                android:layout_height="wrap_content"
+                android:text="Item name"
+                android:textSize="16dp" />
 
-                <TextView
-                    android:id="@+id/displaySpecialDuration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/itemPrice"
-                    android:text="Duration" />
+            <TextView
+                android:id="@+id/displaySpecialDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:layout_below="@+id/itemPrice"
+                android:text="Duration" />
 
-                <TextView
-                    android:id="@+id/displayShopName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ShopName"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/displayItemSpecification"
+                android:layout_margin="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/large_text" />
 
-                <ImageView
-                    android:id="@+id/displayShopLogo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="177dp"
-                    android:src="@drawable/smarthealth2" />
 
-                <TextView
-                    android:id="@+id/displayItemSpecification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/large_text" />
-
-                <TextView
-                    android:id="@+id/displayItemName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Item name"
-                    android:textAllCaps="true"
-                    android:textSize="12dp" />
-
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</ScrollView>

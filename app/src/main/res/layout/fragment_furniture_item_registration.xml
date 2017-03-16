@@ -9,16 +9,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.example.admin.myapplication.fragments.FurnitureItemRegistration">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:elevation="0dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            android:transitionName="@string/app_name"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         <!-- TODO: Update blank fragment layout -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -187,7 +177,7 @@
                 android:background="@drawable/edit_text"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Special Duration"
+                android:hint="Special Duration (start and end date)"
                 android:inputType="textAutoCorrect" />
         </android.support.design.widget.TextInputLayout>
 
