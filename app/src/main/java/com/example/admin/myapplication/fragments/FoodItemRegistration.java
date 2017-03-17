@@ -108,8 +108,7 @@ public class FoodItemRegistration extends Fragment {
             @Override
             public void onClick(View view) {
                 addAnItem();
-//                initializeToNull();
-//                initialize();
+                initializeToNull();
             }
         });
         btn_logout.setOnClickListener(new View.OnClickListener() {
@@ -159,9 +158,7 @@ public class FoodItemRegistration extends Fragment {
                 }
             });
         }else {
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:    Failed wrong input");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Toast.makeText(getActivity().getApplicationContext(),"Item can not be added!..",Toast.LENGTH_LONG).show();
         }
 //        initializeToNull();
     }

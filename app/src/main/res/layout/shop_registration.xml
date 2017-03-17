@@ -70,7 +70,7 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Shop Contact"
-                android:inputType="textEmailAddress" />
+                android:inputType="phone" />
 
         <EditText
             android:id="@+id/etShopPassword"

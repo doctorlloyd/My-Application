@@ -7,17 +7,11 @@
     android:background="#0097A7"
     android:layout_height="match_parent">
 
-    <TextView
+    <ImageView
         android:id="@+id/splash_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textAllCaps="true"
-        android:gravity="center"
-        android:textSize="60sp"
-        android:layout_marginTop="4dp"
-        android:textColor="@android:color/white"
-        android:fontFamily="sans-serif-condensed"/>
+        android:src="@drawable/smarthealth2"/>
 
     <TextView
         android:id="@+id/splash_welcome"
@@ -35,7 +29,7 @@
         android:textColor="@android:color/white"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_centerHorizontal="true"
-        android:text="sharing your wonderful lands"/>
+        android:text="..we are here to make your shopping simple.."/>
     <TextView
         android:id="@+id/splash_message_two"
         android:layout_width="wrap_content"
@@ -44,6 +38,6 @@
         android:textColor="@android:color/white"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_centerHorizontal="true"
-        android:text="has arrived!"/>
+        android:text="shop smart has arrived!"/>
 
 </LinearLayout>
