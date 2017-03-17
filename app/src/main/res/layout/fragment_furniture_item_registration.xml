@@ -159,7 +159,7 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Reduced Price"
-                android:inputType="textAutoCorrect" />
+                android:inputType="numberDecimal" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout

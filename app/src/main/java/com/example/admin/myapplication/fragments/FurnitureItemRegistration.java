@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.example.admin.myapplication.activities.ShopRegisterOrLogin;
 import com.example.admin.myapplication.activities.ShopsRecyclerView;
 import com.example.admin.myapplication.pojos.Furniture;
 import com.example.admin.myapplication.pojos.Shop;
@@ -106,15 +108,15 @@ public class FurnitureItemRegistration extends Fragment {
             @Override
             public void onClick(View view) {
                 addAnItem();
-                initializeToNull();
-                initialize();
+//                initializeToNull();
+//                initialize();
             }
         });
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
-                startActivity(new Intent(getActivity().getBaseContext(),ShopsRecyclerView.class));
+                startActivity(new Intent(getActivity().getBaseContext(),ShopRegisterOrLogin.class));
             }
         });
         return rootView;
@@ -138,11 +140,8 @@ public class FurnitureItemRegistration extends Fragment {
     }
     public void initializeToNull()
     {
-        etFurniturePercentageOFF.setText("");
         etFurnitureBrandName.setText("");
         etFurnitureID.setText("");
-        etFurnitureNormalPrice.setText("");
-        etFurnitureReducedPrice.setText("");
         etFurnitureSize.setText("");
         etFurnitureType.setText("");
         etFurnitureSaleDuration.setText("");
@@ -159,6 +158,7 @@ public class FurnitureItemRegistration extends Fragment {
                     Uri downloadUri = taskSnapshot.getDownloadUrl();
                     image = downloadUri.toString();
                     databaseReference.addValueEventListener(eventListener);
+                    Toast.makeText(getActivity().getApplicationContext(),"Item was successful added!..",Toast.LENGTH_LONG).show();
                 }
             });
         }else {
@@ -181,7 +181,7 @@ public class FurnitureItemRegistration extends Fragment {
                     String furniture_type = etFurnitureType.getText().toString();
                     String furnitureSale_Duration = etFurnitureSaleDuration.getText().toString();
                     String furniture_color = etFurnitureColor.getText().toString();
-                    int furniture_Percentage_Off = Integer.parseInt(etFurniturePercentageOFF.getText().toString());
+                    double furniture_Percentage_Off = Double.parseDouble(etFurniturePercentageOFF.getText().toString());
                     double furniture_Reduced_Price = Double.parseDouble(etFurnitureReducedPrice.getText().toString());
                     double furniture_Normal_Price = Double.parseDouble(etFurnitureNormalPrice.getText().toString());
                     String furniture_Shop_ID = uid;

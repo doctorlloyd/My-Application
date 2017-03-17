@@ -2,7 +2,6 @@ package com.example.admin.myapplication.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -34,7 +33,10 @@ public class ClothingRecyclerView extends AppCompatActivity implements Navigatio
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.global_list);
+
+        shop = (Shop)getIntent().getSerializableExtra("model");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(shop.getShop_Name());
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -45,8 +47,6 @@ public class ClothingRecyclerView extends AppCompatActivity implements Navigatio
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        shop = (Shop)getIntent().getSerializableExtra("model");
 
         String _key = getIntent().getStringExtra("_key");
         String _category = shop.getShop_Category();

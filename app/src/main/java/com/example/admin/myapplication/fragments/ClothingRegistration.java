@@ -4,8 +4,10 @@ package com.example.admin.myapplication.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.admin.myapplication.activities.ShopRegisterOrLogin;
 import com.example.admin.myapplication.activities.ShopsRecyclerView;
 import com.example.admin.myapplication.pojos.Clothing;
 import com.example.admin.myapplication.pojos.Shop;
@@ -84,17 +87,33 @@ public class ClothingRegistration extends Fragment {
             @Override
             public void onClick(View view) {
                 addAnItem();
-                initializeToNull();
-                initialize();
+//                initializeToNull();
+//                initialize();
             }
         });
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
-                startActivity(new Intent(getActivity().getBaseContext(),ShopsRecyclerView.class));
+                startActivity(new Intent(getActivity().getBaseContext(),ShopRegisterOrLogin.class));
             }
         });
+        // [START auth_state_listener]
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                fbuser = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + fbuser.getUid());
+
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
+        // [END auth_state_listener]
         return rootView;
     }
 
@@ -108,7 +127,7 @@ public class ClothingRegistration extends Fragment {
                     Uri downloadUri = taskSnapshot.getDownloadUrl();
                     image = downloadUri.toString();
                     databaseReference.addValueEventListener(eventListener);
-                    Toast.makeText(getActivity(),"Item was successful!..",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Item was successful added!..",Toast.LENGTH_LONG).show();
                 }
             });
         }else {
@@ -129,7 +148,7 @@ public class ClothingRegistration extends Fragment {
                     String clothing_ID = etClothingID.getText().toString();
                     String clothing_type = etClothingType.getText().toString();
                     String clothingSale_Duration = etClothingSaleDuration.getText().toString();
-                    int clothing_Percentage_Off = Integer.parseInt(etClothePercentageOFF.getText().toString());
+                    double clothing_Percentage_Off = Double.parseDouble(etClothePercentageOFF.getText().toString());
                     double clothing_Reduced_Price = Double.parseDouble(etClotheReducedPrice.getText().toString());
                     double clothing_Normal_Price = Double.parseDouble(etClotheNormalPrice.getText().toString());
                     String clothing_Shop_ID = databaseReference.getKey();
@@ -181,15 +200,13 @@ public class ClothingRegistration extends Fragment {
         etClotheSpecification = (EditText) view.findViewById(R.id.etClotheSpecification);
         etClothingSaleDuration = (EditText) view.findViewById(R.id.etClotheSaleDuration);
         btn_add_clothe = (Button) view.findViewById(R.id.btnclothe_item_register);
+        btn_logout = (Button) view.findViewById(R.id.btnclothe_logout);
         imageButton = (ImageButton) view.findViewById(R.id.imgbtn_clothing_item);
     }
     public void initializeToNull()
     {
-        etClothePercentageOFF.setText("");
         etClotheBrandName.setText("");
         etClothingID.setText("");
-        etClotheNormalPrice.setText("");
-        etClotheReducedPrice.setText("");
         etClotheSize.setText("");
         etClothingType.setText("");
         etClotheSpecification.setText("");

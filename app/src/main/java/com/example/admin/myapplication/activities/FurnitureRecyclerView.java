@@ -37,7 +37,9 @@ public class FurnitureRecyclerView extends AppCompatActivity implements Navigati
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.global_list);
+        shop = (Shop)getIntent().getSerializableExtra("model");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(shop.getShop_Name());
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -49,7 +51,7 @@ public class FurnitureRecyclerView extends AppCompatActivity implements Navigati
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        shop = (Shop)getIntent().getSerializableExtra("model");
+
 
         String _key = getIntent().getStringExtra("_key");
         String _category = shop.getShop_Category();

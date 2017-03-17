@@ -11,7 +11,7 @@ public class Clothing implements Serializable{
 
     private String clothing_ID;
     private String clothing_Type;
-    private int clothing_Percentage_Off;
+    private double clothing_Percentage_Off;
     private double clothing_Reduced_Price;
     private double clothing_Normal_Price;
     private String clothing_Shop_ID;
@@ -25,7 +25,7 @@ public class Clothing implements Serializable{
     private String image;
 
 
-    public Clothing(String image,String clothing_Brand_Name, String clothing_Duration, String clothing_ID, double clothing_Normal_Price, int clothing_Percentage_Off, double clothing_Reduced_Price, String clothing_Shop_ID, String clothing_Size, String clothing_Specification , String clothing_Type) {
+    public Clothing(String image,String clothing_Brand_Name, String clothing_Duration, String clothing_ID, double clothing_Normal_Price, double clothing_Percentage_Off, double clothing_Reduced_Price, String clothing_Shop_ID, String clothing_Size, String clothing_Specification , String clothing_Type) {
         this.clothing_Brand_Name = clothing_Brand_Name;
         this.clothing_Duration = clothing_Duration;
         this.clothing_ID = clothing_ID;
@@ -94,11 +94,11 @@ public class Clothing implements Serializable{
         this.clothing_Normal_Price = clothing_Normal_Price;
     }
 
-    public int getClothing_Percentage_Off() {
+    public double getClothing_Percentage_Off() {
         return clothing_Percentage_Off;
     }
 
-    public void setClothing_Percentage_Off(int clothing_Percentage_Off) {
+    public void setClothing_Percentage_Off(double clothing_Percentage_Off) {
         this.clothing_Percentage_Off = clothing_Percentage_Off;
     }
 

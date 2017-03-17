@@ -12,7 +12,7 @@ public class Furniture implements Serializable{
 
     private String furniture_ID;
     private String furniture_Type;
-    private int furniture_Percentage_Off;
+    private double furniture_Percentage_Off;
     private double furniture_Reduced_Price;
     private double furniture_Normal_Price;
     private String furniture_Shop_ID;
@@ -26,7 +26,7 @@ public class Furniture implements Serializable{
     private String furniture_Special_Duration;
     private String image;
 
-    public Furniture(String furniture_Brand_Name,String image, String furniture_Color, String furniture_ID, double furniture_Normal_Price, int furniture_Percentage_Off, double furniture_Reduced_Price, String furniture_Shop_ID, String furniture_Size, String furniture_Special_Duration, String furniture_Specification, String furniture_Type) {
+    public Furniture(String furniture_Brand_Name,String image, String furniture_Color, String furniture_ID, double furniture_Normal_Price, double furniture_Percentage_Off, double furniture_Reduced_Price, String furniture_Shop_ID, String furniture_Size, String furniture_Special_Duration, String furniture_Specification, String furniture_Type) {
         this.furniture_Brand_Name = furniture_Brand_Name;
         this.furniture_Color = furniture_Color;
         this.furniture_ID = furniture_ID;
@@ -82,11 +82,11 @@ public class Furniture implements Serializable{
         this.furniture_Normal_Price = furniture_Normal_Price;
     }
 
-    public int getFurniture_Percentage_Off() {
+    public double getFurniture_Percentage_Off() {
         return furniture_Percentage_Off;
     }
 
-    public void setFurniture_Percentage_Off(int furniture_Percentage_Off) {
+    public void setFurniture_Percentage_Off(double furniture_Percentage_Off) {
         this.furniture_Percentage_Off = furniture_Percentage_Off;
     }
 

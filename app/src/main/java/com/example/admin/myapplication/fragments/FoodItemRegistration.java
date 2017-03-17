@@ -4,16 +4,20 @@ package com.example.admin.myapplication.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.example.admin.myapplication.activities.ShopRegisterOrLogin;
 import com.example.admin.myapplication.activities.ShopsRecyclerView;
 import com.example.admin.myapplication.pojos.Food;
 import com.example.admin.myapplication.pojos.Shop;
@@ -73,6 +77,23 @@ public class FoodItemRegistration extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         //
+        // [START auth_state_listener]
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
+        // [END auth_state_listener]
+        //
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,15 +108,15 @@ public class FoodItemRegistration extends Fragment {
             @Override
             public void onClick(View view) {
                 addAnItem();
-                initializeToNull();
-                initialize();
+//                initializeToNull();
+//                initialize();
             }
         });
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
-                startActivity(new Intent(getActivity().getBaseContext(),ShopsRecyclerView.class));
+                startActivity(new Intent(getActivity().getBaseContext(),ShopRegisterOrLogin.class));
             }
         });
         return rootView;
@@ -120,9 +141,6 @@ public class FoodItemRegistration extends Fragment {
         etFoodAmountOFF.setText("");
         etFoodBrandName.setText("");
         etFoodID.setText("");
-        etFoodNormalPrice.setText("");
-        etFoodReducedPrice.setText("");
-        etFoodSpecialDuration.setText("");
         etFoodWeight.setText("");
         etFoodType.setText("");
         etFoodSpecification.setText("");
@@ -137,6 +155,7 @@ public class FoodItemRegistration extends Fragment {
                     Uri downloadUri = taskSnapshot.getDownloadUrl();
                     image = downloadUri.toString();
                     databaseReference.addValueEventListener(eventListener);
+                    Toast.makeText(getActivity().getApplicationContext(),"Item was successful added!..",Toast.LENGTH_LONG).show();
                 }
             });
         }else {
@@ -144,6 +163,7 @@ public class FoodItemRegistration extends Fragment {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:    Failed wrong input");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
+//        initializeToNull();
     }
     ValueEventListener eventListener = new ValueEventListener() {
         @Override
@@ -151,24 +171,28 @@ public class FoodItemRegistration extends Fragment {
             for (DataSnapshot ds: dataSnapshot.getChildren()){
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "+ ds.getKey());
                 Shop shop = ds.getValue(Shop.class);
-                if(shop.getEmail().equals(user.getEmail()))
+                if(shop!=null)
                 {
-                    String food_ID = etFoodID.getText().toString();
-                    String food_type = etFoodType.getText().toString();
-                    String foodSale_Duration = etFoodSpecialDuration.getText().toString();
-                    int food_Amount_Off = Integer.parseInt(etFoodAmountOFF.getText().toString());
-                    double food_Reduced_Price = Double.parseDouble(etFoodReducedPrice.getText().toString());
-                    double food_Normal_Price = Double.parseDouble(etFoodNormalPrice.getText().toString());
-                    String food_Shop_ID = uid;
-                    String food_Weight = etFoodWeight.getText().toString();
-                    String food_Brand_Name = etFoodBrandName.getText().toString();
-                    String food_Specification = etFoodSpecification.getText().toString();
+                    if(shop.getEmail().equals(user.getEmail()))
+                    {
+                        String food_ID = etFoodID.getText().toString();
+                        String food_type = etFoodType.getText().toString();
+                        String foodSale_Duration = etFoodSpecialDuration.getText().toString();
+                        double food_Amount_Off = Double.parseDouble(etFoodAmountOFF.getText().toString());
+                        double food_Reduced_Price = Double.parseDouble(etFoodReducedPrice.getText().toString());
+                        double food_Normal_Price = Double.parseDouble(etFoodNormalPrice.getText().toString());
+                        String food_Shop_ID = uid;
+                        String food_Weight = etFoodWeight.getText().toString();
+                        String food_Brand_Name = etFoodBrandName.getText().toString();
+                        String food_Specification = etFoodSpecification.getText().toString();
 
-                    Food food = new Food(food_Amount_Off,image,food_Brand_Name,food_ID,food_Normal_Price,food_Reduced_Price,food_Shop_ID,foodSale_Duration,food_Specification,food_type,food_Weight);
-                    databaseReference.child(ds.getKey()).child("Food").push().setValue(food);
-                    databaseReference.removeEventListener(this);
-                    return;
+                        Food food = new Food(food_Amount_Off,image,food_Brand_Name,food_ID,food_Normal_Price,food_Reduced_Price,food_Shop_ID,foodSale_Duration,food_Specification,food_type,food_Weight);
+                        databaseReference.child(ds.getKey()).child("Food").push().setValue(food);
+                        databaseReference.removeEventListener(this);
+                        return;
+                    }
                 }
+
             }
         }
 
