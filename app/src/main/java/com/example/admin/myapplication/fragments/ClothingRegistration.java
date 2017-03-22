@@ -95,6 +95,7 @@ public class ClothingRegistration extends Fragment {
             public void onClick(View view) {
                 signOut();
                 startActivity(new Intent(getActivity().getBaseContext(),ShopRegisterOrLogin.class));
+                getActivity().finish();
             }
         });
         // [START auth_state_listener]
@@ -104,11 +105,11 @@ public class ClothingRegistration extends Fragment {
                 fbuser = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + fbuser.getUid());
+                    Log.d(TAG, "onAuthStateChanged:signed_in: ");
 
                 } else {
                     // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Log.d(TAG, "onAuthStateChanged:signed_out ");
                 }
             }
         };

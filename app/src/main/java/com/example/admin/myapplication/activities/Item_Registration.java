@@ -1,9 +1,15 @@
 package com.example.admin.myapplication.activities;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 import com.example.admin.myapplication.fragments.ClothingRegistration;
 import com.example.admin.myapplication.fragments.FoodItemRegistration;
@@ -24,6 +30,10 @@ public class Item_Registration extends AppCompatActivity {
     private FirebaseAuth user;
     private FirebaseUser fbuser;
     String _category;
+    private Shop shop;
+    // [START declare_auth_listener]
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    // [END declare_auth_listener]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +49,7 @@ public class Item_Registration extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Shop shop = ds.getValue(Shop.class);
+                    shop = ds.getValue(Shop.class);
                     if (shop.getEmail().equals(fbuser.getEmail())) {
                         _category = shop.getShop_Category();
                         try {
@@ -79,11 +89,69 @@ public class Item_Registration extends AppCompatActivity {
 
             }
         });
+        // [START auth_state_listener]
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                fbuser = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Toast.makeText(getApplicationContext(),"onAuthStateChanged:signed_in",Toast.LENGTH_LONG).show();
+
+                } else {
+                    // User is signed out
+                    Toast.makeText(getApplicationContext(),"onAuthStateChanged:signed_out",Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+        // [END auth_state_listener]
+    }
+    // [START on_start_add_listener]
+    @Override
+    public void onStart() {
+        super.onStart();
+        user.addAuthStateListener(mAuthListener);
+    }
+    // [END on_start_add_listener]
+
+    // [START on_stop_remove_listener]
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            user.removeAuthStateListener(mAuthListener);
+        }
+    }
+    private void signOut() {
+        user.signOut();
+        user.removeAuthStateListener(mAuthListener);
     }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setCancelable(false);
+        dialog.setTitle("You're about to logout..");
+        dialog.setMessage("Are you sure you want to logout now?" );
+        dialog.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                //Action for "Logout".
+                signOut();
+                startActivity(new Intent(getBaseContext(),ShopRegisterOrLogin.class));
+                finish();
+            }
+        })
+                .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Action for "Cancel".
+                        startActivity(new Intent(getBaseContext(),Item_Registration.class));
+                        finish();
+                    }
+                });
 
+        final AlertDialog alert = dialog.create();
+        alert.show();
     }
-
 }

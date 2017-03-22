@@ -219,8 +219,8 @@ public class ShopsRecyclerView extends AppCompatActivity implements NavigationVi
             startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
         } else if (id == R.id.nav_about_us) {
-
-
+            Intent intent = new Intent("android.intent.action.ABOUT_US");
+            startActivity(intent);
         } else if (id == R.id.nav_manage_settings) {
 
         }

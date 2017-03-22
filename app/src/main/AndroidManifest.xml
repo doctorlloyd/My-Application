@@ -62,7 +62,6 @@
         <activity android:name="com.example.admin.myapplication.activities.ItemDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -98,6 +97,13 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.admin.myapplication.activities.AboutUs"
+            android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <action android:name="android.intent.action.ABOUT_US" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

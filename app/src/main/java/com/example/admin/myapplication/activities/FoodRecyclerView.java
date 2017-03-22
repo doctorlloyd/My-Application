@@ -104,8 +104,7 @@ public class FoodRecyclerView extends AppCompatActivity implements NavigationVie
             startActivity(new Intent(getApplicationContext(),ActivityMap.class));
             finish();
         } else if (id == R.id.nav_about_us) {
-
-
+            startActivity(new Intent("android.intent.action.ABOUT_US"));
         } else if (id == R.id.nav_manage_settings) {
 
         }

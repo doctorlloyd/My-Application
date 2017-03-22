@@ -116,6 +116,7 @@ public class FurnitureItemRegistration extends Fragment {
             public void onClick(View view) {
                 signOut();
                 startActivity(new Intent(getActivity().getBaseContext(),ShopRegisterOrLogin.class));
+                getActivity().finish();
             }
         });
         return rootView;
