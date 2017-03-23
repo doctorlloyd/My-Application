@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.example.doc.final_project.R;
 
 /**
- * Created by Admin on 2017/03/22.
+ * Created by Doc on 2017/03/22.
  */
 
 public class AboutUs extends Activity {
